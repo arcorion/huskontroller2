@@ -28,7 +28,7 @@ Config.set('graphics', 'borderless', '1')
 Builder.load_file('Huskontroller.kv')
 
 # Disable the following if using the test_serial.py module 
-from extron_serial import Extron
+from extron_switcher import Extron
 switcher = Extron()
 
 # Enable the following to use the test_serial.py module

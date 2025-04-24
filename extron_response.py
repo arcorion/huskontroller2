@@ -1,0 +1,2 @@
+class ExtronResponse:
+    pass
