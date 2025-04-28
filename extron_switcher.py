@@ -41,7 +41,7 @@ class ExtronSwitcher:
             self.logger.error(f'Error opening connection to port: {port_list[0]}')
 
         self.extron_command = ExtronCommand(self.extron_device)
-        self.extron_response = ExtronResponse(self.extron_device))
+        self.extron_response = ExtronResponse(self.extron_device)
 
     def select_input(self, input_device):
         """
@@ -90,7 +90,7 @@ class ExtronCommand:
     """
     ExtronCommand handles the command string that is
     sent to the Extron device.
-    """"
+    """
     def __init__(self, device):
         pass
 
@@ -102,7 +102,7 @@ class ExtronCommand:
             'get_freeze_status': '1F',
             'disable_video': '1*1B',
             'enable_video': '1*0B',
-            'get_video_status': '1*B','
+            'get_video_status': '1*B',
             'enable_projector': 'W+snds9*9|%02PON%03',
             'disable_projector': 'W+snds9*9|%02POF%03',
             'get_volume': 'V',
@@ -123,7 +123,7 @@ class ExtronCommand:
         if command_string:
             self.extron_device.write(command_string.encode())
             self.logger.info(f'Command sent: {command_string}')
-        else if custom == True:
+        elif custom == True:
             self.extron_device.write(command.encode())
             self.logger.info(f'Custom command sent: {command}')
         else:
