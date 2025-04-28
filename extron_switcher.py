@@ -116,9 +116,6 @@ class ExtronCommand:
         Takes a command string and sends the command as an
         encoded byte string to the Extron device.
         """
-        self.logger.info(f'Sending command: {command}')
-        self.extron_device.write(command.encode())
-
         command_string = self.command_list.get(command)
         if command_string:
             self.extron_device.write(command_string.encode())
