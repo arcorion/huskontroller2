@@ -9,6 +9,6 @@ class Huskontroller:
     def run(self):
         pass
 
-if __main__ == '__main__':
+if __name__ == '__main__':
     controller = Huskontroller()
     controller.run()
