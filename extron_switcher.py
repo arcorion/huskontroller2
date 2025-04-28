@@ -129,5 +129,6 @@ class ExtronCommand:
         else:
             self.logger.error(f'Unsupported command: {command}')
 
+
 class ExtronResponse:
     pass
