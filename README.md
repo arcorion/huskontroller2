@@ -34,7 +34,9 @@ python3 Huskontroller.py
 
 If you try to start it without having the necessary serial ports attached and configured, it may raise an error that it can't find the serial port. There is a test device called "test_serial.py" which may be used if needed for testing.
 
-## Files/Folder Structure
-The program relies on "Huskontroller.py", "Huskontroller.kv", and "extron_serial.py" in order to function. Huskontroller.py and Huskontroller.kv run the interface, with extron_serial.py sending the actual SIS commands to the Extron device via a serial connection. There's also a "test_serial.py" file, which can be used for testing in the case where a serial port is not connected. Implementation details are in the code of the software.
+## Sources used
 
-The folder also contains a "README.md" file, a "fonts" folder (the device uses Open Sans, as a font recommended by the university), an "images" folder, containing the background and some spare images, and a ".git" folder, which contains the git repo info for the folder.
+Primary sources used for this are the documentation of the included modules.
+
+[PySerial](https://pyserial.readthedocs.io/en/latest/shortintro.html)
+[PSL's select module](https://docs.python.org/3/library/select.html)
