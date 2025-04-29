@@ -1,4 +1,2 @@
-from abc import ABC
-
-class DeviceInterface(ABC):
+class DeviceInterface():
     pass
