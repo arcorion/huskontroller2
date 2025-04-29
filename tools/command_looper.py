@@ -12,7 +12,7 @@ def attach_device():
     port_names = []
     for port in port_list:
         port_names += port
-    device = serial.Serial(port_names[0], 9600)
+    device = serial.Serial(port_names[0], 9600, timeout=0)
     return device
 
 def cycle_read_write(device):
