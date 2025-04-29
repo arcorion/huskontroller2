@@ -1,5 +1,6 @@
 import logging
 import serial
+import time
 from pathlib import Path
 from serial.tools import list_ports
 
@@ -54,35 +55,60 @@ class ExtronSwitcher:
     
     def freeze(self):
         """
-        Sends the Extron command necessary for 
+        Tells send_command to freeze display.
         """
         self.extron_command.send_command('enable_freeze')
         
     def unfreeze(self):
+        """
+        Tells send_command to unfreeze display.
+        """
         self.extron_command.send_command('disable_freeze')
     
     def blank(self):
+        """
+        Tells send_command to blank display.
+        """
         self.extron_command.send_command('disable_video')
     
     def unblank(self):
+        """
+        Tells send_command to unblank display.
+        """
         self.extron_command.send_command('enable_video')
         
     def turn_projector_on(self):
+        """
+        Tells send_command to turn on projector.
+        """
         self.extron_command.send_command('enable_projector')
     
     def turn_projector_off(self):
+        """
+        Tells send_command to turn off projector.
+        """
         self.extron_command.send_command('disable_projector')
     
     def set_volume(self, volume_level):
+        """
+        Calculates volume and sends custom string of the Extron
+        SIS command to send_command.
+        """
         volume = -100
         volume = volume + int(volume_level)
         command = str(volume_level) + 'V'
         self.extron_command.send_command(command, True)
     
     def mute(self):
+        """
+        Tells send_command to mute the audio.
+        """
         self.extron_command.send_command('disable_audio')
     
     def unmute(self):
+        """
+        Tells send_command to unmute the audio.
+        """
         self.extron_command.send_command('enable_audio')
 
 
@@ -90,6 +116,9 @@ class ExtronCommand:
     """
     ExtronCommand handles the command string that is
     sent to the Extron device.
+
+    It associates the commands themselves with a useful
+    name for easy use in other methods.
     """
     def __init__(self, device):
         pass
