@@ -1,4 +1,4 @@
-class DeviceInterface():
+class DeviceInterface:
     """
     The DeviceInterface class is meant to represent a generic device.
     It should function as a template for other classes implementing it.
