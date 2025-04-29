@@ -7,7 +7,6 @@ def main():
     cycle_read_write(attach_device())
 
 def attach_device():
-
     port_list = list_ports.comports()
     port_names = []
     for port in port_list:
