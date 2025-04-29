@@ -82,6 +82,13 @@ class ExtronSwitcher:
         Tells send_command to turn on projector.
         """
         self.extron_command.send_command('enable_projector')
+        time.sleep(10)
+        self.extron_command.send_command('disable_freeze')
+        time.sleep(5)
+        self.extron_command.send_command('enable_audio')
+        time.sleep(5)
+        self.extron_command.send_command('enable_video')
+
     
     def turn_projector_off(self):
         """
