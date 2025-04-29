@@ -38,9 +38,9 @@ If you try to start it without having the necessary serial ports attached and co
 
 Primary sources used for this are the documentation of the included modules.
 
-[PySerial](https://pyserial.readthedocs.io/en/latest/shortintro.html)
-[PSL's select module](https://docs.python.org/3/library/select.html)
+- [PySerial](https://pyserial.readthedocs.io/en/latest/shortintro.html)
+- [PSL's select module](https://docs.python.org/3/library/select.html)
 
 I'm also using this to review Classes in Python.
 
-[Python 3.13.3 - Classes](https://docs.python.org/3/tutorial/classes.html)
+- [Python 3.13.3 - Classes](https://docs.python.org/3/tutorial/classes.html)
