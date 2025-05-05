@@ -42,6 +42,7 @@ def cycle_read(device):
             device_content = device_content + device_output
         elif len(device_output) == 0:
             print(f': {device_content}')
+            device_content = ""
         else:
             print("Error!")
 
