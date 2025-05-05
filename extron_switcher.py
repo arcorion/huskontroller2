@@ -89,7 +89,6 @@ class ExtronSwitcher:
         time.sleep(5)
         self.extron_command.send_command('enable_video')
 
-    
     def turn_projector_off(self):
         """
         Tells send_command to turn off projector.

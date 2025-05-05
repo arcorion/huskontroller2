@@ -30,6 +30,8 @@ def cycle_read_write(device):
         # https://pyserial.readthedocs.io/en/latest/pyserial_api.html?highlight=serial%20read#serial.Serial.read
 
         command = input('Command? ("quit to quit") ')
+        if command == "quit":
+            break
         device.write(command.encode())
         read, _, _ = select.select([device], [], [], timeout)
         device_output = device.read(0x100)
