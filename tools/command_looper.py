@@ -26,11 +26,17 @@ def attach_device():
     device = serial.Serial(port_names[0], 9600, timeout=0)
     return device
 
-def cycle_read():
+def cycle_read(device):
     """
     Regularly reads serial device output and prints to terminal display.
     """
-    pass
+    while True:
+        print("Press CTRL+C to quit")
+        timeout = 10
+        read, _, _ = select.select([device], [], [], timeout)
+        device_output = device.read(0x100)
+
+        print("Out: " + device_output)
 
 def cycle_read_write(device):
     """
@@ -45,7 +51,7 @@ def cycle_read_write(device):
         # https://pyserial.readthedocs.io/en/latest/pyserial_api.html?highlight=serial%20read#serial.Serial.read
 
         command = input('Command? ("quit" to quit) ')
-        if command == "quit":
+        if command == 'quit':
             break
         device.write(command.encode())
         read, _, _ = select.select([device], [], [], timeout)
@@ -53,16 +59,18 @@ def cycle_read_write(device):
 
         print(device_output)
 
-def cycle_write():
+def cycle_write(device):
     """
     Takes a command and writes it to the serial device. It does not produce the response.
+    Continues this until quit command it received.
     """
     command = ""
 
-    while (command.lower()[0] != 'q'):
+    while (command.lower != 'quit'):
         command = input('Command? ("quit" to quit)')
-        if command == "quit":
+        if command== 'quit':
             break
+        device.write(command.encode())
 
 if __name__ == '__main__':
     main()
