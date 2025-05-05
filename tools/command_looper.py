@@ -5,7 +5,7 @@ from serial.tools import list_ports
 
 def main():
     device = attach_device()
-    mode = input("(R)ead, (W)rite, or (B)oth?")
+    mode = input("(R)ead, (W)rite, or (B)oth? ")
     mode = mode.lower()[0]
     match mode:
         case 'r':
