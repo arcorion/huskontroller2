@@ -30,9 +30,10 @@ def cycle_read(device):
     """
     Regularly reads serial device output and prints to terminal display.
     """
+    print("Press CTRL+C to quit")
+    timeout = 10
+
     while True:
-        print("Press CTRL+C to quit")
-        timeout = 10
         read, _, _ = select.select([device], [], [], timeout)
         device_output = device.read(0x100)
 
