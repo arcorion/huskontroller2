@@ -34,7 +34,7 @@ def cycle_read(device):
     timeout = 10
 
     while True:
-        read, _, _ = select.select([device], [], [], timeout)
+        read, _, _ = select.select([device], [], [])
         device_output = device.read(0x100)
         device_output = device_output.decode().strip("\r\n")
         if device_output != "":
