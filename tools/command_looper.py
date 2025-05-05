@@ -38,7 +38,7 @@ def cycle_read(device):
         device_output = device.read_until("\r\n")
         device_output = device_output.decode().strip("\r\n")
         if device_output != "":
-            print(': ' + device_output, end = '')
+            print(': ' + device_output)
 
 def cycle_read_write(device):
     """
