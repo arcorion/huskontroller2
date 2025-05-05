@@ -68,7 +68,7 @@ def cycle_write(device):
     command = ""
 
     while (command.lower != 'quit'):
-        command = input('Command? ("quit" to quit)')
+        command = input('Command? ("quit" to quit) ')
         if command== 'quit':
             break
         device.write(command.encode())
