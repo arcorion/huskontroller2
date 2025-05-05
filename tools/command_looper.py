@@ -37,8 +37,8 @@ def cycle_read(device):
         read, _, _ = select.select([device], [], [])
         device_output = device.read_until("\r\n")
         device_output = device_output.decode().strip("\r\n")
-        if device_output != "":
-            print(f': {device_output}', end='')
+        if len(device_output) == 0:
+            print(f': {device_output}')
 
 def cycle_read_write(device):
     """
