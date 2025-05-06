@@ -37,9 +37,7 @@ def cycle_read(device):
     while True:
         read, _, _ = select.select([device], [], [])
         device_output = device.read_until("\r\n")
-        device_output = device_output.decode() #.strip("\r\n")
-        # print('DO: ' + device_output)
-        # print('DC: ' + device_content)
+        device_output = device_output.decode().strip("\r\n")
         if len(device_output) != 0:
             device_content = device_content + device_output
         elif len(device_output) == 0:
