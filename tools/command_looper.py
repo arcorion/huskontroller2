@@ -38,7 +38,6 @@ def cycle_read(device):
         read, _, _ = select.select([device], [], [])
         device_output = device.read_until("\r\n")
         device_output = device_output.decode().strip("\r\n")
-        print("test statement")
         if len(device_output) != 0:
             device_content = device_content + device_output
         elif len(device_output) == 0:
