@@ -44,7 +44,6 @@ def cycle_read(device):
         elif len(device_output) == 0:
             print(f': {device_content}')
             device_content = ""
-            break
         else:
             print("Error!")
 
