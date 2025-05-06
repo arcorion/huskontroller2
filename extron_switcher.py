@@ -100,6 +100,7 @@ class ExtronSwitcher:
         Calculates volume and sends custom string of the Extron
         SIS command to send_command.
         """
+        self.extron_command.send_command('enable_audio')
         volume = -100
         volume = volume + int(volume_level)
         command = str(volume_level) + 'V'
