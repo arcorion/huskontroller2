@@ -40,7 +40,7 @@ def cycle_read(device):
         device_output = device_output.decode().strip("\r\n")
         if len(device_output) != 0:
             device_content = device_content + device_output
-        elif len(device_output) == 0:
+        elif len(device_output) == 0 and len(device_content) != 0:
             print(f': {device_content}')
             device_content = ""
         else:
