@@ -25,7 +25,7 @@ Config.set('graphics', 'fullscreen', 'auto')
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '480')
 Config.set('graphics', 'borderless', '1')
-Builder.load_file('huskontroller_ui.kv')
+Builder.load_file('display.kv')
 
 # Disable the following if using the test_serial.py module 
 from extron_switcher import Extron

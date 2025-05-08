@@ -1,10 +1,12 @@
 import logging
 import serial
 import time
+from device import Device
+from huskontroller import Huskontroller
 from pathlib import Path
 from serial.tools import list_ports
 
-class ExtronSwitcher:
+class ExtronSwitcher(Device):
     """
     Class representing the Extron device's communication - it
     handles hows commands and response are sent and received.

@@ -1,5 +1,5 @@
 from extron_switcher import ExtronSwitcher, ExtronCommand, ExtronResponse
-from huskontroller_ui import HuskontrollerUI
+from display import HuskontrollerUI
 
 class Huskontroller:
     def __init__(self):
