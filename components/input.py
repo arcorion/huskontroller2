@@ -10,7 +10,8 @@ class Input(Component):
         self._duration = 0
         
     def switch_input(self, ):
-
+        pass
+    
     def update_duration(self):
         """
         Update the duration period since the last state change.
