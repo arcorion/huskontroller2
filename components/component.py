@@ -2,15 +2,12 @@
 This module contains the Device class, a virtual class representing the methods needed
 for a device to function and update the huskontroller.
 """
-from abc import ABC
-
-
-class Device(ABC):
+class Component():
     """
-    The Device class is meant to represent a generic device.
-    It should function as a template for other classes implementing it.
+    The Component class is meant to represent a generic component of the AV
+    system. It is a template for other classes implementing it.
     
-    The Device object will interact with the controller by passing
+    The Component object will interact with the controller by passing
     along commands requested of it and by updating the controller with any
     pertinent changes to its state.
     """
@@ -23,22 +20,8 @@ class Device(ABC):
     def set_controller(self, controller):
         self._controller = controller
 
-
-class Projector:
-    """
-    Represents the projector's state - either off or on.
-    """
-    power_status = False
-
-    def __init__():
+    def get_state():
         pass
 
-class Screen:
-    """
-    Represents the screen state - either frozen, blank, or neither.
-    """
-    pass
-
-
-class Volume:
-    pass
+    def get_duration():
+        pass

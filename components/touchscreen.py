@@ -35,12 +35,12 @@ switcher = Extron()
 #from test_serial.py import TestDevice
 #switcher = TestDevice()
 
-class Interface(BoxLayout):
+class Touchscreen(BoxLayout):
     """
     Class widget representing the screen layout as a whole.
     """
     def __init__(self, **kwargs):
-        super(Interface, self).__init__(**kwargs)
+        super(Touchscreen, self).__init__(**kwargs)
 
         freeze_toggle = FreezeToggle()
         blank_toggle = BlankToggle()
@@ -245,7 +245,7 @@ class HuskontrollerApp(App):
     Actual app class for Kivy.
     """
     def build(self):
-        return Interface()
+        return Touchscreen()
 
 if __name__ == '__main__':
     """
