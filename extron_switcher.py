@@ -1,10 +1,8 @@
-import logging
-import serial
+# REMOVE ME WHEN DONE
 import time
 from components.command import Command
 from huskontroller import Huskontroller
-from pathlib import Path
-from serial.tools import list_ports
+
 
 class ExtronSwitcher():
     """
@@ -17,40 +15,8 @@ class ExtronSwitcher():
         serial devices, picking the first from the list and assuming
         that's the Extron device. If multiple serial devices are
         connected, modify this to account for the devices.
-        """
-        self.logger = logging.getLogger('extron_serial')
-        self.logger.setLevel(logging.DEBUG)
-        
-        log_path = Path('logs')
-        if not log_path.exists():
-            log_path.mkdir()
-        file_handler = logging.FileHandler('logs/extron_serial.log')
-        file_handler.setLevel(logging.DEBUG)
-        
-        formatter = logging.Formatter(fmt='%(asctime)s - %(message)s',
-                                        datefmt='%Y-%m-%d %H:%M:%S')
-        file_handler.setFormatter(formatter)
-        self.logger.addHandler(file_handler)
-        self.logger.info('Extron serial device connection initializing...\n')
-
-        try:
-            port_list = list_ports.comports()
-            port_names = []
-            for port in port_list:
-                port_names += port
-            self.extron_device = serial.Serial(port_names[0], 9600)
-            self.logger.info(f'Device {self.extron_device} created.')
-        except serial.SerialException:
-            self.logger.error(f'Error opening connection to port: {port_list[0]}')
-
-        self.command = Command(self.extron_device)
-        self.update = None
-        """
-        
-        
-        CHANGE THIS PART ^^^^ self.update = None!?
-        
-        """
+        """        
+        pass
 
     def select_input(self, input_device):
         """

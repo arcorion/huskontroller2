@@ -1,4 +1,4 @@
-from components.others.clock import Clock
+from components.helpers.clock import Clock
 from component import Component
 
 class Image(Component):

@@ -1,4 +1,7 @@
+import logging
+import serial
 from component import Component
+from serial.tools import list_ports
 
 class Command:
     """
@@ -9,7 +12,7 @@ class Command:
     name for easy use in other methods.
     """
     def __init__(self, device):
-        pass
+        self._device = device
 
         self.command_list = {
             'select_input': '1!',
@@ -28,6 +31,16 @@ class Command:
             'get_audio_status': 'Z'
         }
 
+        try:
+            port_list = list_ports.comports()
+            port_names = []
+            for port in port_list:
+                port_names += port
+            self.extron_device = serial.Serial(port_names[0], 9600)
+            self.logger.info(f'Device {self.extron_device} created.')
+        except serial.SerialException:
+            self.logger.error(f'Error opening connection to port: {port_list[0]}')
+
     def send_command(self, command, custom=False):
         """
         Takes a command string and sends the command as an
@@ -35,10 +48,11 @@ class Command:
         """
         command_string = self.command_list.get(command)
         if command_string:
-            self.extron_device.write(command_string.encode())
+            self._device.write(command_string.encode())
             self.logger.info(f'Command sent: {command_string}')
         elif custom == True:
-            self.extron_device.write(command.encode())
+            self._device.write(command.encode())
             self.logger.info(f'Custom command sent: {command}')
         else:
             self.logger.error(f'Unsupported command: {command}')
+

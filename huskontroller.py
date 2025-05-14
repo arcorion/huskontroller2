@@ -5,7 +5,8 @@ from components.image import Image
 from components.input import Input
 from components.projector import Projector
 from components.sound import Sound
-from components.touchscreen import Touchscreen
+from components.touchscreen.touchscreen import Touchscreen
+from serial.tools import list_ports
 
 class Huskontroller:
     def __init__(self):
