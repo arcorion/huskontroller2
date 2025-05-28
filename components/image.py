@@ -9,11 +9,11 @@ class Image(Component):
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-
         self._frozen = False
         self._blanked = False
-        self.set_freeze(False)
-        self.set_blank(False)
+
+        self.unset_freeze()
+        self.unset_blank()
         
     def set_freeze(self):
         """
