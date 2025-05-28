@@ -34,8 +34,10 @@ class Projector(Component):
         anything other than "on" or "off".
         """
         match power_state:
-            case "on" | "off":
-                self._power_state = power_state
+            case "on":
+                self.enable()
+            case "off":
+                self.disable()
             case _:
                 log_error = f"Error with power_state: {power_state}"
                 self.log.error(log_error)
