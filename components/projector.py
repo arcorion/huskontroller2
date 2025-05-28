@@ -8,16 +8,28 @@ class Projector(Component):
     """
 
     def __init__(self):
-        self._power_state = False
-        self._duration = 0
+        self._power_state = "off"
 
     def get_state(self):
-        if self._power_state:
-            return "on"
-        else:
-            return "off"
+        return self._power_state
     
     def set_state(self, power_state):
         """
-        Takes a 
+        Takes a string "power_state" and tracks
+        the on and off state of the projector.
+
+        This also triggers the set_clock of the
+        component.
+
+        Throws an error if power_state is
+        anything other than "on" or "off".
         """
+        power_state = power_state.lower()
+        match power_state:
+            case "on" | "off":
+                self._power_state = power_state
+            case _:
+                log_error = "Error with power_state: {power_state}"
+                self.log.error(log_error)
+                raise ValueError(log_error)
+
