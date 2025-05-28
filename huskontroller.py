@@ -29,7 +29,7 @@ class Huskontroller:
         Image is set to unfrozen and unblanked, Input is set to podium,
         sound is enabled and set to volume of 50.
         """
-        self._projector.off()
+        self._projector.disable()
         sleep(10)
         self._image.unblank()
         self._image.unfreeze()
