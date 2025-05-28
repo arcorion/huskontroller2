@@ -47,13 +47,6 @@ class Image(Component):
         self._controller.set_image("unblanked")
         self._blanked = False
         self._clock.set_last_state_change()
-
-    def get_duration(self):
-        """
-        Return a float of the seconds since the last state change.
-        """
-        self._clock.update_duration()
-        return self._clock.get_duration()
     
     def get_state(self):
         """
