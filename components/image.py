@@ -12,7 +12,6 @@ class Image(Component):
 
         self._frozen = False
         self._blanked = False
-        self._duration = 0
         self.set_freeze(False)
         self.set_blank(False)
         
@@ -59,3 +58,13 @@ class Image(Component):
         Return freeze status boolean - true "frozen", flase "unfrozen"
         """
         return self._frozen
+    
+    def get_state(self):
+        """
+        Return image state in the form of tuple
+        (bool freeze_state, bool blank_state, float duration).
+        """
+        freeze_state = self.get_freeze()
+        blank_state = self.get_blank()
+        duration = self.get_duration()
+        return (freeze_state, blank_state, duration)

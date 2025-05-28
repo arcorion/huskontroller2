@@ -14,7 +14,6 @@ class Projector(Component):
         """
         super().__init__()
         self._power_state = "off"
-        
 
     def disable(self):
         """
@@ -32,5 +31,18 @@ class Projector(Component):
         self._commander.send_command("enable_projector")
         self.set_clock()
 
-    def get_state(self):
+    def get_power_state(self):
+        """
+        Return the power state string "off" or "on".
+        """
         return self._power_state
+
+    def get_state(self):
+        """
+        Return the projector state in the form
+        (string power_state, float duration)
+        """
+        power_state = self.get_power_state()
+        duration = self.get_duration()
+        return (power_state, duration)
+

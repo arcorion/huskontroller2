@@ -14,7 +14,6 @@ class Input(Component):
         super().__init__()
 
         self._commander = commander
-        self._current_input = self._inputs[0]
         self._input = 0
         
     def set_input(self, input):
@@ -29,8 +28,13 @@ class Input(Component):
         except Exception as error:
             print(f"Unexpected error with Input: {error}")
         
+        # Input number set from index
         self._input = index
-        input_command = "select_" + self._input
+
+        # Commander expects 1-4, not 0-3, so increment and then
+        # append to select string.
+        command_number = self._input + 1
+        input_command = "select_" + str(command_number) + "!"
         self._commander.send_command(input_command)
 
     def get_input(self):
@@ -41,4 +45,10 @@ class Input(Component):
         return self._INPUTS[self._input]
     
     def get_state(self):
-        return self._current_input
+        """
+        Return the state of the input as a tuple in the form
+        (string input, float duration).
+        """
+        input = self.get_input()
+        duration = self.get_duration()
+        return (input, duration)
