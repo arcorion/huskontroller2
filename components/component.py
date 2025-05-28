@@ -126,7 +126,7 @@ class Logger:
         """
         Takes a string instance_name
         """
-        self.instance_name = instance_name
+        self._instance_name = instance_name
         self._logger.info(f'Enabling logging for {self._instance_name}')
         self.enabled = enabled
     
