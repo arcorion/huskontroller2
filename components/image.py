@@ -1,4 +1,3 @@
-from components.helpers.clock import Clock
 from component import Component
 
 class Image(Component):
@@ -12,7 +11,6 @@ class Image(Component):
         self._controller = controller
         self._frozen = False
         self._blanked = False
-        self._clock = Clock()
         self._duration = 0
         self.freeze(False)
         self.blank(False)

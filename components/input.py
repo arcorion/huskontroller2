@@ -1,4 +1,3 @@
-import time
 from component import Component
 
 class Input(Component):
@@ -33,15 +32,5 @@ class Input(Component):
         """
         return self._INPUTS[self._input]
     
-    def update_duration(self):
-        """
-        Update the duration period since the last state change.
-        """
-        self._duration = time.time() - self._last_state_change
-    
-    def get_duration(self):
-        """
-        Return a float of the seconds since the last state change.
-        """
-        self.update_duration()
-        return self._duration
+    def get_state(self):
+        return self._current_input

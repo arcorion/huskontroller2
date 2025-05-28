@@ -1,27 +1,136 @@
+import logging
+import os
+import time
+from pathlib import Path
+
 """
-This module contains the Device class, a virtual class representing the methods needed
-for a device to function and update the huskontroller.
+This module contains the Device class, representing the methods needed
+for a device to function and update the huskontroller. It also provides
+clock and logging capabilities to the components.
 """
-class Component():
+class Component:
     """
-    The Component class is meant to represent a generic component of the AV
-    system. It is a template for other classes implementing it.
+    The Component class has the shared methods for implementing a given
+    component. 
     
     The Component object will interact with the controller by passing
     along commands requested of it and by updating the controller with any
     pertinent changes to its state.
     """
-    def __init__(self, controller = None):
+    def __init__(self, controller=None, name="Component"):
         self._controller = controller
-    
+        self._name = name
+
+        self.clock = Clock()
+        self.log = Logger(self._name)
+
+    def __repr__(self):
+        return f"{self._name}"
+
     def get_controller(self):
         return self._controller
     
     def set_controller(self, controller):
         self._controller = controller
 
-    def get_state():
-        pass
+    def set_clock(self):
+        """
+        Sets the clock's last timer to the current time
+        """
+        self.clock.update_clock()
 
-    def get_duration():
-        pass
+    def get_clock(self):
+        """
+        Returns the duration since the last time the clock
+        was set.
+        """
+        return self.clock.get_duration()
+
+
+class Clock:
+    """
+    Clock represents the duration since the last state change
+    of a component. It stores the last time a state was changed
+    and gets the duration since that last time.
+    """
+    def __init__(self):
+        """
+        Initialize clock with time at creation
+        of clock.
+        """
+        self._last_state_change = time.time()
+    
+    def __repr__(self):
+        return f'{self.get_duration()}'
+
+    def update_clock(self):
+        """
+        Update the clock to reflect the time
+        of the last state change.
+        """
+        self._last_state_change = time.time()
+
+    def get_duration(self):
+        """
+        Return float (in seconds) representing the duration passed
+        since the last state change.
+        """
+        duration = time.time() - self._last_state_change
+        return duration
+
+
+class Logger:
+    """
+    Logger object that gets used to write to the log file.
+    """
+    _logger = logging.getLogger('huskontroller')
+    _logger.setLevel(logging.DEBUG)
+
+    # Set the log path to the application_root/logs folder.
+    _log_path = Path.cwd()
+    _log_path = _log_path.parent
+    _log_path = _log_path / 'logs'
+
+    # Make sure the log directory exists
+    if not _log_path.exists():
+        _log_path.mkdir()
+
+    _main_log = _log_path / 'huskontroller.log'
+    _backup_log = _log_path / 'backup.log'
+    # Set maximum log size to 100MB, copy to backup,
+    # and delete the log file, if overly large.
+    _logger_size_limit = 100 * 1024 * 1024
+    _log_size = os.path.getsize(_main_log)
+    if _log_size > _logger_size_limit:
+        if _backup_log.exists():
+            os.remove(_backup_log)
+        os.rename(_main_log, _backup_log)
+
+    # Set the filehandler output to huskontroller.log
+    _file_handler = logging.FileHandler(_main_log)
+    _file_handler.setLevel(logging.DEBUG)
+
+    # Using the format "YYYY-MM-DD HH:MM:SS" for the timestamp, then a
+    # dash, and then the actual message.
+    _formatter = logging.Formatter(fmt='%(asctime)s - %(message)s',
+                                datefmt='%Y-%m-%d %H:%M:%S')
+    _file_handler.setFormatter(_formatter)
+
+    # Appl
+    _logger.addHandler(_file_handler)
+
+    def __init__(self, instance_name):
+        """
+        Takes a string instance_name
+        """
+        self._instance_name = instance_name
+        self._logger.info(f'Enabling logging for {self._instance_name}')
+    
+    def info(self, log_string):
+        self._logger.info(f"{self._instance_name}: {log_string}")
+
+    def warning(self, log_string):
+        self._logger.warning(f"{self._instance_name}: {log_string}")
+    
+    def error(self, log_string):
+        self._logger.error(f"{self._instance_name}: {log_string}")
