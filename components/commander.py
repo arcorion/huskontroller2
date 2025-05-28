@@ -9,8 +9,7 @@ class Commander:
     It associates the commands themselves with a useful
     name for easy use in other methods.
     """
-    def __init__(self, device):
-        self._device = device
+    def __init__(self):
 
         self.command_list = {
             'select_podium': '1!',
@@ -37,8 +36,8 @@ class Commander:
             port_names = []
             for port in port_list:
                 port_names += port
-            self.extron_device = serial.Serial(port_names[0], 9600)
-            self.logger.info(f'Device {self.extron_device} created.')
+            self._device = serial.Serial(port_names[0], 9600)
+            self.logger.info(f'Device {self._device} created.')
         except serial.SerialException:
             self.logger.error(f'Error opening connection to port: {port_list[0]}')
 
