@@ -8,37 +8,29 @@ class Projector(Component):
     """
 
     def __init__(self):
+        """
+        Initialize projector object, setting power state to off
+        by default and initializing clock.
+        """
         super().__init__()
         self._power_state = "off"
+        self.set_clock()
 
     def disable(self):
+        """
+        Command function, sets projector to off and sends command.
+        """
         self.set_state("off")
         self._commander.send_command("disable_projector")
+        self.set_clock()
 
     def enable(self):
+        """
+        Command function, sets projector to on and sends command.
+        """
         self.set_state("on")
         self._commander.send_command("enable_projector")
+        self.set_clock()
 
     def get_state(self):
         return self._power_state
-    
-    def set_state(self, power_state):
-        """
-        Takes a string "power_state" and tracks
-        the on and off state of the projector.
-
-        This also triggers the set_clock of the
-        component.
-
-        Throws an error if power_state is
-        anything other than "on" or "off".
-        """
-        match power_state:
-            case "on":
-                self.enable()
-            case "off":
-                self.disable()
-            case _:
-                log_error = f"Error with power_state: {power_state}"
-                self.log.error(log_error)
-                raise ValueError(log_error)
