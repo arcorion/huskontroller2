@@ -22,7 +22,7 @@ class Component:
         self._name = name
 
         self.clock = Clock()
-        self.log = Logger(self._name)
+        self.log = Logger(self._name, True)
 
     def __repr__(self):
         return f"{self._name}"
