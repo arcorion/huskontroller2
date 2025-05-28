@@ -1,14 +1,18 @@
 from component import Component
 
 class Input(Component):
-    
+    """
+    The Input component manages the state of the AV
+    input. It ensures that one of the four inputs,
+    "podium", "hdmi", "usbc", and "vga" are selected
+    and provides a getter module for the input.
+    """
 
     _INPUTS = ["podium", "hdmi", "usbc", "vga"]
 
     def __init__(self, controller):
         self._controller = controller
         self._current_input = self._inputs[0]
-        self._duration = 0
         self._input = 0
         
     def set_input(self, input):
