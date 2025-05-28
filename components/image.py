@@ -8,6 +8,7 @@ class Image(Component):
         """
         Set initial state with freeze and blank disabled.
         """
+        super().__init__()
         self._controller = controller
         self._frozen = False
         self._blanked = False

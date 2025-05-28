@@ -11,6 +11,7 @@ class Input(Component):
     _INPUTS = ["podium", "hdmi", "usbc", "vga"]
 
     def __init__(self, controller):
+        super().__init__()
         self._controller = controller
         self._current_input = self._inputs[0]
         self._input = 0

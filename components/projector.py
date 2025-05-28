@@ -8,6 +8,7 @@ class Projector(Component):
     """
 
     def __init__(self):
+        super().__init__()
         self._power_state = "off"
 
     def get_state(self):
@@ -24,12 +25,10 @@ class Projector(Component):
         Throws an error if power_state is
         anything other than "on" or "off".
         """
-        power_state = power_state.lower()
         match power_state:
             case "on" | "off":
                 self._power_state = power_state
             case _:
-                log_error = "Error with power_state: {power_state}"
+                log_error = f"Error with power_state: {power_state}"
                 self.log.error(log_error)
                 raise ValueError(log_error)
-
