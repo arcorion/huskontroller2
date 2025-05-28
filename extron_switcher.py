@@ -1,6 +1,6 @@
 # REMOVE ME WHEN DONE
 import time
-from components.command import Command
+from components.commander import Command
 from huskontroller import Huskontroller
 
 

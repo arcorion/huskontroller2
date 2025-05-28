@@ -10,9 +10,9 @@ class Input(Component):
 
     _INPUTS = ["podium", "hdmi", "usbc", "vga"]
 
-    def __init__(self, controller):
+    def __init__(self, commander):
         super().__init__()
-        self._controller = controller
+        self._commander = commander
         self._current_input = self._inputs[0]
         self._input = 0
         
@@ -29,6 +29,8 @@ class Input(Component):
             print(f"Unexpected error with Input: {error}")
         
         self._input = index
+        input_command = "select_" + self._input
+        self._commander.send_command(input_command)
 
     def get_input(self):
         """

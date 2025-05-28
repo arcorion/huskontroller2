@@ -1,6 +1,6 @@
 from time import sleep
 
-from components.command import Command
+from components.commander import Command
 from components.image import Image
 from components.input import Input
 from components.projector import Projector
