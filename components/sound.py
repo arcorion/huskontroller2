@@ -1,4 +1,8 @@
 from component import Component
 
 class Sound(Component):
-    pass
+    
+
+    def __init__(self):
+        super().__init__()
+        

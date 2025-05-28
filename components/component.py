@@ -18,9 +18,10 @@ class Component:
     along commands requested of it and by updating the controller with any
     pertinent changes to its state.
     """
-    def __init__(self, name="Component", controller=None):
+    def __init__(self, name="Component", controller=None, enabled=False):
         self._controller = controller
         self._name = name
+        self._enabled = enabled
         self.clock = Clock()
         # Enable log
         # To disable, set True to False.
@@ -55,6 +56,18 @@ class Component:
         was set.
         """
         return self.clock.get_duration()
+    
+    def enable(self):
+        """
+        Sets component state to enabled/turned on.
+        """
+        self._enabled = True
+
+    def disable(self):
+        """
+        Sets component state to disabled/turned off
+        """
+        self._disabled = True
 
 
 class Clock:

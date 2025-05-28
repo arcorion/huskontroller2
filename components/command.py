@@ -1,4 +1,3 @@
-import logging
 import serial
 from component import Component
 from serial.tools import list_ports
