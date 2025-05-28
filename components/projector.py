@@ -14,7 +14,7 @@ class Projector(Component):
         """
         super().__init__()
         self._power_state = "off"
-        self.set_clock()
+        
 
     def disable(self):
         """

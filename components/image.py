@@ -9,8 +9,6 @@ class Image(Component):
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-        # Setting clock for last state change
-        self.set_clock()
 
         self._frozen = False
         self._blanked = False

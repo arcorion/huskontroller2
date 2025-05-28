@@ -12,6 +12,7 @@ class Input(Component):
 
     def __init__(self, commander):
         super().__init__()
+
         self._commander = commander
         self._current_input = self._inputs[0]
         self._input = 0
