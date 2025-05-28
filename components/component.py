@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+from commander import Commander
 from pathlib import Path
 
 """
@@ -27,6 +28,7 @@ class Component:
         self._name = name
         self._enabled = enabled
         self.clock = Clock()
+        self.commander = Commander()
         # Enable log
         # To disable, set True to False.
         self.log = Logger(self._name, True)
