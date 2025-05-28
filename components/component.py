@@ -17,7 +17,7 @@ class Component:
     along commands requested of it and by updating the controller with any
     pertinent changes to its state.
     """
-    def __init__(self, controller=None, name="Component"):
+    def __init__(self, name="Component", controller=None):
         self._controller = controller
         self._name = name
 
@@ -95,16 +95,19 @@ class Logger:
     if not _log_path.exists():
         _log_path.mkdir()
 
+    # Assign the main and backup log paths
     _main_log = _log_path / 'huskontroller.log'
     _backup_log = _log_path / 'backup.log'
-    # Set maximum log size to 100MB, copy to backup,
+
+    # Set maximum log size to 100MB, copy main to backup,
     # and delete the log file, if overly large.
     _logger_size_limit = 100 * 1024 * 1024
-    _log_size = os.path.getsize(_main_log)
-    if _log_size > _logger_size_limit:
-        if _backup_log.exists():
-            os.remove(_backup_log)
-        os.rename(_main_log, _backup_log)
+    if _main_log.exists():
+        _log_size = os.path.getsize(_main_log)
+        if _log_size > _logger_size_limit:
+            if _backup_log.exists():
+                os.remove(_backup_log)
+            os.rename(_main_log, _backup_log)
 
     # Set the filehandler output to huskontroller.log
     _file_handler = logging.FileHandler(_main_log)
@@ -119,18 +122,22 @@ class Logger:
     # Appl
     _logger.addHandler(_file_handler)
 
-    def __init__(self, instance_name):
+    def __init__(self, instance_name, enabled=False):
         """
         Takes a string instance_name
         """
-        self._instance_name = instance_name
+        self.instance_name = instance_name
         self._logger.info(f'Enabling logging for {self._instance_name}')
+        self.enabled = enabled
     
     def info(self, log_string):
-        self._logger.info(f"{self._instance_name}: {log_string}")
+        if self.enabled:
+            self._logger.info(f"{self._instance_name}: {log_string}")
 
     def warning(self, log_string):
-        self._logger.warning(f"{self._instance_name}: {log_string}")
+        if self.enabled:
+            self._logger.warning(f"{self._instance_name}: {log_string}")
     
     def error(self, log_string):
-        self._logger.error(f"{self._instance_name}: {log_string}")
+        if self.enabled:
+            self._logger.error(f"{self._instance_name}: {log_string}")
