@@ -62,6 +62,9 @@ class Component:
         was set.
         """
         return self.clock.get_duration()
+    
+    def get_state(self):
+        pass
 
 
 class Clock:
