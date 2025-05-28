@@ -29,9 +29,17 @@ class Component:
         return f"{self._name}"
 
     def get_controller(self):
+        """
+        Return the controller object bound
+        with this component.
+        """
         return self._controller
     
     def set_controller(self, controller):
+        """
+        Takes controller object.
+        Change the controller bound with this component.
+        """
         self._controller = controller
 
     def set_clock(self):
