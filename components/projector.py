@@ -7,13 +7,16 @@ class Projector(Component):
     last changed.
     """
 
-    def __init__(self, commander):
+    def __init__(self):
         super().__init__()
         self._power_state = "off"
-        self._commander = commander
+
+    def disable(self):
+        self.set_state("off")
+        self._commander.send_command("disable_projector")
 
     def enable(self):
-        self._power_state = "on"
+        self.set_state("on")
         self._commander.send_command("enable_projector")
 
     def get_state(self):
