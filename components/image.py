@@ -4,55 +4,60 @@ class Image(Component):
     """
     Represents the image state - either frozen, blank, or neither.
     """
-    def __init__(self, controller):
+    def __init__(self):
         """
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-        self._controller = controller
+        # Setting clock for last state change
+        self.set_clock()
+
         self._frozen = False
         self._blanked = False
         self._duration = 0
-        self.freeze(False)
-        self.blank(False)
-        self._controller.update(self.get_state)
+        self.set_freeze(False)
+        self.set_blank(False)
         
-    def freeze(self):
+    def set_freeze(self):
         """
         Send freeze command and update internal state.
         """
-        self._controller.set_image("frozen")
+        self._commander.send_command("enable_freeze")
         self._frozen = True
-        self._clock.set_last_state_change()
+        self.set_clock()
 
-    def unfreeze(self):
+    def unset_freeze(self):
         """
         Send unfreeze command and update internal state.
         """
-        self._controller.set_image("unfrozen")
+        self._commander.send_command("disable_freeze")
         self._frozen = False
-        self._clock.set_last_state_change()
+        self.set_clock()
 
-    def blank(self):
+    def set_blank(self):
         """
         Send blank command and update internal state.
         """
-        self._controller.set_image("blanked")
+        self._commander.send_command("disable_video")
         self._blanked = True
-        self._clock.set_last_state_change()
+        self.set_clock()
 
-    def unblank(self):
+    def unset_blank(self):
         """
         Send unblank command and update internal state.
         """
-        self._controller.set_image("unblanked")
+        self._commander.send_command("enable_video")
         self._blanked = False
-        self._clock.set_last_state_change()
+        self.set_clock()
     
-    def get_state(self):
+    def get_blank(self):
         """
-        Return a tuple of the blank state, frozen state, and duration
-        in seconds since last state change. (bool, bool, float)
+        Return blank status boolean - true "blanked", false "unblanked"
         """
-        self._clock.update_duration()
-        return (self._blanked, self._frozen, self._duration)
+        return self._blanked
+    
+    def get_freeze(self):
+        """
+        Return freeze status boolean - true "frozen", flase "unfrozen"
+        """
+        return self._frozen
