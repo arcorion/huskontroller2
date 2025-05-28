@@ -4,9 +4,10 @@ import time
 from pathlib import Path
 
 """
-This module contains the Device class, representing the methods needed
-for a device to function and update the huskontroller. It also provides
-clock and logging capabilities to the components.
+This module contains the Component class, which is the base class used
+for each of the individual components. It provides a Clock object and a
+Logger object for each component, so that they each can manage the last
+state change and write to the Huskontroller log, respectively.
 """
 class Component:
     """
