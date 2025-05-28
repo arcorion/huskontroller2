@@ -54,7 +54,7 @@ class Component:
         """
         Sets the clock's last timer to the current time
         """
-        self.clock.update_clock()
+        self.clock.set_clock()
 
     def get_clock(self):
         """
@@ -83,7 +83,7 @@ class Clock:
         """
         return f'{self.get_duration()}'
 
-    def update_clock(self):
+    def set_clock(self):
         """
         Update the clock to reflect the time
         of the last state change.
