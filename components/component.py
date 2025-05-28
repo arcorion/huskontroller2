@@ -19,6 +19,10 @@ class Component:
     pertinent changes to its state.
     """
     def __init__(self, name="Component", controller=None, enabled=False):
+        """
+        Initialize component with a string name, a controller controller, and
+        a boolean enabled.
+        """
         self._controller = controller
         self._name = name
         self._enabled = enabled
@@ -56,18 +60,6 @@ class Component:
         was set.
         """
         return self.clock.get_duration()
-    
-    def enable(self):
-        """
-        Sets component state to enabled/turned on.
-        """
-        self._enabled = True
-
-    def disable(self):
-        """
-        Sets component state to disabled/turned off
-        """
-        self._disabled = True
 
 
 class Clock:
