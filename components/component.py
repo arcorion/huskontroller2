@@ -20,8 +20,9 @@ class Component:
     def __init__(self, name="Component", controller=None):
         self._controller = controller
         self._name = name
-
         self.clock = Clock()
+        # Enable log
+        # To disable, set True to False.
         self.log = Logger(self._name, True)
 
     def __repr__(self):
@@ -61,6 +62,9 @@ class Clock:
         self._last_state_change = time.time()
     
     def __repr__(self):
+        """
+        Returns a string of the duration float.
+        """
         return f'{self.get_duration()}'
 
     def update_clock(self):
@@ -124,20 +128,34 @@ class Logger:
 
     def __init__(self, instance_name, enabled=False):
         """
-        Takes a string instance_name
+        Takes a string instance_name and boolean enabled.
+        The instance name field adds itself immediately after
+        each log line's time and before the actual log contents.
+
+        The enabled boolean does what it says. It enables or disables
+        logging to disk.
         """
         self._instance_name = instance_name
         self._logger.info(f'Enabling logging for {self._instance_name}')
         self.enabled = enabled
     
     def info(self, log_string):
+        """
+        Writes the string "log_string" to the log file as an info log.
+        """
         if self.enabled:
             self._logger.info(f"{self._instance_name}: {log_string}")
 
     def warning(self, log_string):
+        """
+        Writes the string "log_string" to the log file as a warning log.
+        """
         if self.enabled:
             self._logger.warning(f"{self._instance_name}: {log_string}")
     
     def error(self, log_string):
+        """
+        Writes the string "log_string" to the log file as an error log.
+        """
         if self.enabled:
             self._logger.error(f"{self._instance_name}: {log_string}")
