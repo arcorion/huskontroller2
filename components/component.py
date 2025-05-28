@@ -28,7 +28,7 @@ class Component:
         self._name = name
         self._enabled = enabled
         self.clock = Clock()
-        self.commander = Commander()
+        self._commander = Commander()
         # Enable log
         # To disable, set True to False.
         self.log = Logger(self._name, True)
