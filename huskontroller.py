@@ -38,6 +38,9 @@ class Huskontroller:
         Image is set to unfrozen and unblanked, Input is set to podium,
         sound is enabled and set to volume of 50.
         """
+        print("Setting initial state. There is a delay during the " \
+        "start up process to ensure devices have enough time " \
+        "to receive all commands.")
         self._projector.disable()
         sleep(self._projector_wait)
         self._image.unset_blank()

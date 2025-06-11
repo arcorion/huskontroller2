@@ -10,7 +10,19 @@ class Commander:
     name for easy use in other methods.
     """
     def __init__(self):
+        """
+        Initializes the Commander module. This creates
+        a dictionary representing the list of supported commands and
+        creates a serial connection to the Extron scaler.
 
+        If a connection to the scaler cannot be made, it will instead
+        create a proxy device which just outputs commands to the console.
+
+        It is possible to send a pre-formatted command via the send_command()
+        method. The "custom" bool must be set as "True". As I write this, only
+        the Sound module uses this. It passes the volume setting this way.
+        """
+        
         self.command_list = {
             'select_podium': '1!',
             'select_hdmi': '2!',
@@ -62,9 +74,17 @@ class SerialProxy:
     """
     A proxy device for printing serial commands when
     the serial interface doesn't work.
+
+    It takes serial commands and writes them to the console
+    instead of to an actual serial device. Useful for testing.
     """
     def __init__(self):
         pass
 
+    
     def write(self, string):
-        print(string)
+        """
+        Takes an encoded bytestring "string", decodes it, and prints it
+        to the console.
+        """
+        print(string.decode())
