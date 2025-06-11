@@ -53,7 +53,6 @@ Builder.load_file('gui.kv')
 class TouchPanel(BoxLayout):
     def __init__(self, **kwargs):
         super(TouchPanel, self).__init__(**kwargs)
-        print("I got as far as the touch panel.")
 
     def get_background(self):
         image_directory = Path.cwd() / 'images' / 'backgrounds'     
