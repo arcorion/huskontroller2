@@ -31,6 +31,7 @@ class Commander:
             'get_audio_status': 'Z'
         }
 
+        self._device = None
         try:
             port_list = list_ports.comports()
             port_names = []
@@ -39,7 +40,11 @@ class Commander:
             self._device = serial.Serial(port_names[0], 9600)
         except serial.SerialException:
             print(f'Error opening connection to port: {port_list[0]}')
-
+            if (self._device is None):
+                print("Problems exist with serial device.")
+                print("Writing serial commmands to console: ")
+                self._device = SerialProxy()
+        
     def send_command(self, command, custom=False):
         """
         Takes a command string and sends the command as an
@@ -53,3 +58,13 @@ class Commander:
         else:
             print(f'Unsupported command: {command}')
 
+class SerialProxy:
+    """
+    A proxy device for printing serial commands when
+    the serial interface doesn't work.
+    """
+    def __init__(self):
+        pass
+
+    def write(self, string):
+        print(string)
