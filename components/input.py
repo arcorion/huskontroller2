@@ -1,4 +1,4 @@
-from component import Component
+from components.component import Component
 
 class Input(Component):
     """
@@ -10,10 +10,9 @@ class Input(Component):
 
     _INPUTS = ["podium", "hdmi", "usbc", "vga"]
 
-    def __init__(self, commander):
+    def __init__(self, huskontroller):
         super().__init__()
 
-        self._commander = commander
         self._input = 0
         
     def set_input(self, input):
@@ -33,8 +32,8 @@ class Input(Component):
 
         # Commander expects 1-4, not 0-3, so increment and then
         # append to select string.
-        command_number = self._input + 1
-        input_command = "select_" + str(command_number) + "!"
+        command = self._INPUTS[self._input]
+        input_command = "select_" + str(command)
         self._commander.send_command(input_command)
 
     def get_input(self):

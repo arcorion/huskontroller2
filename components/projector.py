@@ -1,4 +1,4 @@
-from component import Component
+from components.component import Component
 
 class Projector(Component):
     """
@@ -7,7 +7,7 @@ class Projector(Component):
     last changed.
     """
 
-    def __init__(self):
+    def __init__(self, huskontroller):
         """
         Initialize projector object, setting power state to off
         by default and initializing clock.
@@ -46,3 +46,14 @@ class Projector(Component):
         duration = self.get_duration()
         return (power_state, duration)
 
+    def set_state(self, state):
+        """
+        Apply the given power state.
+        """
+        match state:
+            case "on":
+                self._power_state = state
+            case "off":
+                self._power_state = state
+            case _:
+                print("Error setting projector power state.")

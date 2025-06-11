@@ -1,10 +1,10 @@
-from component import Component
+from components.component import Component
 
 class Image(Component):
     """
     Represents the image state - either frozen, blank, or neither.
     """
-    def __init__(self):
+    def __init__(self, huskontroller):
         """
         Set initial state with freeze and blank disabled.
         """

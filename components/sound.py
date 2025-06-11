@@ -1,9 +1,9 @@
-from component import Component
+from components.component import Component
 
 class Sound(Component):
     
 
-    def __init__(self):
+    def __init__(self, huskontroller):
         super().__init__()
         self._volume = 50
         self._mute = False

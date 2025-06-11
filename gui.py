@@ -53,6 +53,7 @@ Builder.load_file('gui.kv')
 class TouchPanel(BoxLayout):
     def __init__(self, **kwargs):
         super(TouchPanel, self).__init__(**kwargs)
+        print("I got as far as the touch panel.")
 
     def get_background(self):
         image_directory = Path.cwd() / 'images' / 'backgrounds'     
@@ -250,7 +251,7 @@ class MuteButton(DefaultButton):
     pass
 
 
-class Huskontroller(App):
+class HuskontrollerGUI(App):
     def build(self):
         return TouchPanel()
 
@@ -259,4 +260,4 @@ if __name__ == "__main__":
     """
     Run me, my dear friend!
     """
-    Huskontroller().run()
+    HuskontrollerGUI().run()
