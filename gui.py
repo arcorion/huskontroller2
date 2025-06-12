@@ -112,6 +112,12 @@ class DefaultButton(ToggleButton):
             case _:
                 base_color = HUSKY_PURPLE
 
+        self.background_color_normal = self.add_transparency(
+            base_color, 'unselected')
+        self.background_color_down =  self.add_transparency(
+            base_color, 'selected')
+        self.background_color = self.background_color_normal
+
     def add_transparency(self, color, selected):
         match selected:
             case 'selected':
@@ -169,34 +175,6 @@ class InputButton(DefaultButton):
     def __init__(self, **kwargs):
         super(InputButton, self).__init__(**kwargs)
         self.allow_no_selection = False
-
-        #usbc_red = USBC_RED
-        #hdmi_yellow = HDMI_YELLOW
-        #vga_blue = VGA_BLUE
-        #podium_disabled = 
-        #usbc_disabled = 
-        #hdmi_disabled = 
-        #vga_disabled =
-
-    def on_text(self, instance, value):
-        base_color = None
-        match self.text:
-            case 'Podium':
-                base_color = PODIUM_GREEN
-            case 'USB-C':
-                base_color = USBC_RED
-            case 'HDMI':
-                base_color = HDMI_YELLOW
-            case 'VGA':
-                base_color = VGA_BLUE
-            case _:
-                base_color = HUSKY_PURPLE   
-
-        self.background_color_normal = self.add_transparency(
-            base_color, 'unselected')
-        self.background_color_down =  self.add_transparency(
-            base_color, 'selected')
-        self.background_color = self.background_color_normal
 
 
 class BlankSpace(Label):
