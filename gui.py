@@ -50,9 +50,14 @@ match operating_system:
 
 Builder.load_file('gui.kv')
 
+class Controller:
+    controller = None
+
+
 class TouchPanel(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self, controller=None, **kwargs):
         super(TouchPanel, self).__init__(**kwargs)
+        self.controller = controller
 
     def get_background(self):
         image_directory = Path.cwd() / 'images' / 'backgrounds'     
@@ -155,10 +160,24 @@ class PowerInput(BoxLayout):
 class PowerButtonContainer(BoxLayout):
     pass
 
-class PowerButton(DefaultButton):
+class PowerButton(DefaultButton, Controller):
     
     def __init__(self, **kwargs):
         super(PowerButton, self).__init__(**kwargs)
+
+    def on_state(self, widget, value):
+        if value == 'down':
+            self.controller.turn_power_on()
+            self.background_color = self.background_color_down
+            with self.canvas.after:
+                husky_gold = HUSKY_GOLD
+                husky_gold.append(SELECTED_TRANSPARENCY)
+                Color(husky_gold)
+                Line(width=2, rectangle=[self.x, self.y,
+                                self.width, self.height])
+        else:
+            self.background_color = self.background_color_normal
+            self.canvas.after.clear()
 
 
 class InputButtons(GridLayout):
@@ -231,6 +250,9 @@ class MuteButton(DefaultButton):
 class HuskontrollerGUI(App):
     def build(self):
         return TouchPanel()
+
+
+
 
 
 if __name__ == "__main__":

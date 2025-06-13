@@ -9,6 +9,7 @@ from components.input import Input
 from components.projector import Projector
 from components.sound import Sound
 from gui import HuskontrollerGUI
+from gui import Controller
 
 class Huskontroller:
     def __init__(self):
@@ -17,6 +18,7 @@ class Huskontroller:
         self._projector = Projector(self)
         self._sound = Sound(self)
         self._gui = HuskontrollerGUI()
+        Controller.controller = self
         
         # Defines wait time between projector start
         # and sending the first command
