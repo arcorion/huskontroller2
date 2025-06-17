@@ -1,8 +1,9 @@
-import logging
-import os
+# import logging
+# import os
+# from pathlib import Path
+
 import time
 from commander import Commander
-from pathlib import Path
 
 """
 This module contains the Component class, which is the base class used
@@ -31,7 +32,7 @@ class Component:
         self._commander = Commander()
         # Enable log
         # To disable, set True to False.
-        self.log = Logger(self._name, True)
+        # self.log = Logger(self._name, True)
 
     def __repr__(self):
         return f"{self._name}"
@@ -101,7 +102,7 @@ class Clock:
         duration = time.time() - self._last_state_change
         return duration
 
-
+'''
 class Logger:
     """
     Logger object that gets used to write to the log file.
@@ -178,3 +179,5 @@ class Logger:
         """
         if self.enabled:
             self._logger.error(f"{self._instance_name}: {log_string}")
+            
+'''

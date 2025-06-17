@@ -10,7 +10,6 @@ class Commander:
     name for easy use in other methods.
     """
     def __init__(self):
-
         self.command_list = {
             'select_podium': '1!',
             'select_hdmi': '2!',
