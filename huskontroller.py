@@ -10,7 +10,7 @@ from gui import HuskontrollerApp
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
-class Huskontroller:
+class Huskontroller(EventDispatcher):
     def __init__(self):
         self._commander = Commander()
         self._image = Image()

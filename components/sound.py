@@ -2,7 +2,7 @@ from components.component import Component
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
-class Sound(Component):
+class Sound(Component, EventDispatcher):
     
 
     def __init__(self):

@@ -2,7 +2,7 @@ from components.component import Component
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
-class Input(Component):
+class Input(Component, EventDispatcher):
     """
     The Input component manages the state of the AV
     input. It ensures that one of the four inputs,

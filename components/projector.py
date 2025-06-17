@@ -2,7 +2,7 @@ from components.component import Component
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty
 
-class Projector(Component):
+class Projector(Component, EventDispatcher):
     """
     Represents the projector's state - either "off" or "on",
     as well as how long it has been since its state was

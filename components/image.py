@@ -2,7 +2,7 @@ from components.component import Component
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty
 
-class Image(Component):
+class Image(Component, EventDispatcher):
     """
     Represents the image state - either frozen, blank, or neither.
     """
