@@ -35,6 +35,10 @@ USBC_RED = [200/255, 30/255, 30/255]
 HDMI_YELLOW = [210/255, 210/255, 10/255]
 VGA_BLUE = [0/255, 10/255, 150/255]
 
+# Use this to enable a random background selection on start
+# If False, the old white puppy dubs background will be used.
+ENABLE_RANDOM_BACKGROUND = True
+
 operating_system = platform.system()
 match operating_system:
     case 'Linux':
@@ -54,14 +58,17 @@ class TouchPanel(BoxLayout):
     def __init__(self, **kwargs):
         super(TouchPanel, self).__init__(**kwargs)
 
-    def get_background(self):
+    def get_background(self, random=ENABLE_RANDOM_BACKGROUND):
         source_path = Path(__file__).resolve()
         source_dir = source_path.parent
         image_directory = source_dir / 'images' / 'backgrounds'     
         
-        background_list = [x for x in image_directory.iterdir()]
-        return str(choice(background_list))
-        #return "./images/backgrounds/pidubs-normal.png"
+        background = str(image_directory / 'pidubs-normal.png')
+        if random:
+            background_list = [x for x in image_directory.iterdir()]
+            background = str(choice(background_list))
+
+        return background
 
 
 class DefaultButton(ToggleButton):
