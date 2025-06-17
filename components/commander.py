@@ -59,5 +59,5 @@ class Commander:
 
 class TestSerial:
 
-    def write(command):
+    def write(self, command):
         output = 'Serial Out: ' + command.decode()

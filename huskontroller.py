@@ -1,21 +1,23 @@
 from time import sleep
 
+from components.commander import Commander
 from components.image import Image
 from components.input import Input
 from components.projector import Projector
 from components.sound import Sound
-from components.touchscreen.touchscreen import Touchscreen
+from gui import HuskontrollerApp
 
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
 class Huskontroller:
     def __init__(self):
-        self._image = Image(self)
-        self._input = Input(self)
-        self._projector = Projector(self)
-        self._sound = Sound(self)
-        self._touchscreen = Touchscreen(self)
+        self._commander = Commander()
+        self._image = Image()
+        self._input = Input(self._commander)
+        self._projector = Projector()
+        self._sound = Sound()
+        self._touchscreen = HuskontrollerApp()
         
         # Defines wait time between projector start
         # and sending the first command
@@ -25,7 +27,9 @@ class Huskontroller:
 
         self._device_list = [self._image,
                              self._input, self._projector,
-                             self._sound, self._touchscreen]
+                             self._sound]
+    
+        self._touchscreen.run()
 
     def set_initial_state(self):
         """

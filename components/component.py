@@ -3,7 +3,7 @@
 # from pathlib import Path
 
 import time
-from commander import Commander
+from components.commander import Commander
 
 """
 This module contains the Component class, which is the base class used

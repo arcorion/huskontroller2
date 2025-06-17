@@ -1,4 +1,4 @@
-from component import Component
+from components.component import Component
 
 class Projector(Component):
     """
@@ -46,3 +46,15 @@ class Projector(Component):
         duration = self.get_duration()
         return (power_state, duration)
 
+    def set_state(self, state):
+        """
+        Take a string representing the state. "on" turns power on, "off" turns
+        it off.
+        """
+        match state:
+            case "on":
+                self._power_state = "on"
+            case "off":
+                self._power_state = "off"
+            case _:
+                print("Error changing projector power state in Projector module.")

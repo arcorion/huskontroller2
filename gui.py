@@ -37,7 +37,7 @@ VGA_BLUE = [0/255, 10/255, 150/255]
 
 # Use this to enable a random background selection on start
 # If False, the old white puppy dubs background will be used.
-ENABLE_RANDOM_BACKGROUND = True
+ENABLE_RANDOM_BACKGROUND = False
 
 operating_system = platform.system()
 match operating_system:
@@ -52,7 +52,7 @@ match operating_system:
     case _:
         Exception("Not a supported OS")
 
-Builder.load_file('gui.kv')
+
 
 class TouchPanel(BoxLayout):
     def __init__(self, **kwargs):
@@ -259,13 +259,16 @@ class MuteButton(DefaultButton):
     pass
 
 
-class Huskontroller(App):
+class HuskontrollerApp(App):
     def build(self):
+        Builder.load_file('gui.kv')
         return TouchPanel()
 
+def run():
+    HuskontrollerApp().run()
 
 if __name__ == "__main__":
     """
     Run me, my dear friend!
     """
-    Huskontroller().run()
+    run()
