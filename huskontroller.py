@@ -6,6 +6,9 @@ from components.projector import Projector
 from components.sound import Sound
 from components.touchscreen.touchscreen import Touchscreen
 
+from kivy.event import EventDispatcher
+from kivy.properties import BooleanProperty, NumericProperty
+
 class Huskontroller:
     def __init__(self):
         self._image = Image(self)
