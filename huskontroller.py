@@ -23,12 +23,15 @@ class Huskontroller:
         # and sending the first command
         self._projector_wait = 10
 
-        self.set_initial_state()
-
+        
+        """
         self._device_list = [self._image,
                              self._input, self._projector,
                              self._sound]
-    
+        """
+        
+        self.set_initial_state()
+
         self._touchscreen.run()
 
     def set_initial_state(self):
@@ -37,9 +40,8 @@ class Huskontroller:
         Image is set to unfrozen and unblanked, Input is set to podium,
         sound is enabled and set to volume of 50.
         """
-        sleep(self._projector_wait)
         self._projector.disable()
-        sleep(self._projector_wait)
+        #sleep(self._projector_wait)
         self._image.unset_blank()
         self._image.unset_freeze()
         self._input.set_input("podium")

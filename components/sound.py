@@ -1,12 +1,14 @@
 from components.component import Component
+from kivy.event import EventDispatcher
+from kivy.properties import BooleanProperty, NumericProperty
 
 class Sound(Component):
     
 
     def __init__(self):
         super().__init__()
-        self._volume = 50
-        self._mute = False
+        self._volume = NumericProperty(50)
+        self._mute = BooleanProperty(False)
 
     def set_volume(self, volume=50):
         """

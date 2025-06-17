@@ -11,9 +11,6 @@ class Image(Component):
         super().__init__()
         self._frozen = False
         self._blanked = False
-
-        self.unset_freeze()
-        self.unset_blank()
         
     def set_freeze(self):
         """

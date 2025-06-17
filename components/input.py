@@ -1,4 +1,6 @@
 from components.component import Component
+from kivy.event import EventDispatcher
+from kivy.properties import BooleanProperty, NumericProperty
 
 class Input(Component):
     """
@@ -34,7 +36,7 @@ class Input(Component):
         # Commander expects 1-4, not 0-3, so increment and then
         # append to select string.
         command_number = self._input + 1
-        input_command = "select_" + str(command_number) + "!"
+        input_command = "select_" + str(self._INPUTS[command_number])
         self._commander.send_command(input_command)
 
     def get_input(self):
