@@ -1,4 +1,6 @@
 from components.component import Component
+from kivy.event import EventDispatcher
+from kivy.properties import BooleanProperty
 
 class Image(Component):
     """
@@ -9,8 +11,8 @@ class Image(Component):
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-        self._frozen = False
-        self._blanked = False
+        self._frozen = BooleanProperty(False)
+        self._blanked = BooleanProperty(False)
         
     def set_freeze(self):
         """
