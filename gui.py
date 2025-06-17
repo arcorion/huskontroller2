@@ -55,7 +55,9 @@ class TouchPanel(BoxLayout):
         super(TouchPanel, self).__init__(**kwargs)
 
     def get_background(self):
-        image_directory = Path.cwd() / 'images' / 'backgrounds'     
+        source_path = Path(__file__).resolve()
+        source_dir = source_path.parent
+        image_directory = source_dir / 'images' / 'backgrounds'     
         
         background_list = [x for x in image_directory.iterdir()]
         return str(choice(background_list))
