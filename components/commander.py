@@ -37,9 +37,11 @@ class Commander:
             for port in port_list:
                 port_names += port
             self._device = serial.Serial(port_names[0], 9600)
-            self.logger.info(f'Device {self._device} created.')
+            print(f'Device {self._device} created.')
         except serial.SerialException:
-            self.logger.error(f'Error opening connection to port: {port_list[0]}')
+            print(f'Error opening connection to port: {port_list[0]}')
+            self._device = TestSerial()
+
 
     def send_command(self, command, custom=False):
         """
@@ -49,10 +51,14 @@ class Commander:
         command_string = self.command_list.get(command)
         if command_string:
             self._device.write(command_string.encode())
-            self.logger.info(f'Command sent: {command_string}')
+            print(f'Command sent: {command_string}')
         elif custom == True:
             self._device.write(command.encode())
-            self.logger.info(f'Custom command sent: {command}')
+            print(f'Custom command sent: {command}')
         else:
-            self.logger.error(f'Unsupported command: {command}')
+            print(f'Unsupported command: {command}')
 
+class TestSerial:
+
+    def write(command):
+        output = 'Serial Out: ' + command.decode()

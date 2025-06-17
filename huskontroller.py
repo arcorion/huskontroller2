@@ -15,7 +15,6 @@ class Huskontroller:
         self._input = Input(self)
         self._projector = Projector(self)
         self._sound = Sound(self)
-        
         self._touchscreen = Touchscreen(self)
         
         # Defines wait time between projector start
