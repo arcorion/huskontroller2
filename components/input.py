@@ -15,8 +15,8 @@ class Input(Component, EventDispatcher):
     def __init__(self, commander):
         super().__init__()
 
-        self._commander = commander
-        self._input = 0
+        self.commander = commander
+        self.input = 0
         
     def set_input(self, input):
         """
@@ -35,16 +35,16 @@ class Input(Component, EventDispatcher):
 
         # Commander expects 1-4, not 0-3, so increment and then
         # append to select string.
-        command_number = self._input + 1
+        command_number = self.input + 1
         input_command = "select_" + str(self._INPUTS[command_number])
-        self._commander.send_command(input_command)
+        self.commander.send_command(input_command)
 
     def get_input(self):
         """
         Return a string of the currently set input,
          Options: "podium", "hdmi", "usbc", or "vga"
         """
-        return self._INPUTS[self._input]
+        return self._INPUTS[self.input]
     
     def get_state(self):
         """
@@ -52,5 +52,5 @@ class Input(Component, EventDispatcher):
         (string input, float duration).
         """
         input = self.get_input()
-        duration = self.get_duration()
+        duration = self.get_clock()
         return (input, duration)

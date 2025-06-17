@@ -6,9 +6,9 @@ class Sound(Component, EventDispatcher):
     
 
     def __init__(self):
-        super().__init__()
-        self._volume = NumericProperty(50)
-        self._mute = BooleanProperty(False)
+        super(Sound, self).__init__()
+        self.volume = NumericProperty(50)
+        self.mute = BooleanProperty(False)
 
     def set_volume(self, volume=50):
         """
@@ -16,29 +16,30 @@ class Sound(Component, EventDispatcher):
         Unmutes the system, if needed, and sets system
         volume to the volume request level given.
         """
-        if self._mute:
+        if self.mute:
             self.unset_mute()
         
         command_volume = volume - 100
-        self._volume = volume
+        self.volume = volume
         command = str(command_volume) + 'V'
-        self._commander.send_command(command, True)
+        self.commander.send_command(command, True)
         self.set_clock()
 
     def set_mute(self):
         """
         Enable mute on the system.
         """
-        self._mute = True
-        self._commander.send_command("disable_audio")
+        self.mute = True
+        self.commander.send_command("disable_audio")
+        print("sent mute")
         self.set_clock()
 
     def unset_mute(self):
         """
         Disable mute on the system. Unmute.
         """
-        self._mute = False
-        self._commander.send_command("enable_audio")
+        self.mute = False
+        self.commander.send_command("enable_audio")
         self.set_clock()
     
     def get_mute(self):
@@ -46,14 +47,14 @@ class Sound(Component, EventDispatcher):
         Return the mute setting of the Sound object.
         boolean True = Muted, False = Unmuted
         """
-        return self._mute
+        return self.mute
 
     def get_volume(self):
         """
         Return the volume level of the Sound object.
         Integer from 0-100, low to high volume.
         """
-        return self._volume
+        return self.volume
 
     def get_state(self):
         """
@@ -62,5 +63,5 @@ class Sound(Component, EventDispatcher):
         """
         mute_state = self.get_mute()
         volume = self.get_volume()
-        duration = self.get_duration()
+        duration = self.get_clock()
         return (mute_state, volume, duration)

@@ -15,14 +15,14 @@ class Projector(Component, EventDispatcher):
         by default and initializing clock.
         """
         super().__init__()
-        self._power_state = BooleanProperty(False)
+        self.power_state = BooleanProperty(False)
 
     def disable(self):
         """
         Command function, sets projector to off and sends command.
         """
         self.set_state("off")
-        self._commander.send_command("disable_projector")
+        self.commander.send_command("disable_projector")
         self.set_clock()
 
     def enable(self):
@@ -30,14 +30,14 @@ class Projector(Component, EventDispatcher):
         Command function, sets projector to on and sends command.
         """
         self.set_state("on")
-        self._commander.send_command("enable_projector")
+        self.commander.send_command("enable_projector")
         self.set_clock()
 
     def get_power_state(self):
         """
         Return the power state string "off" or "on".
         """
-        return self._power_state
+        return self.power_state
 
     def get_state(self):
         """
@@ -45,7 +45,7 @@ class Projector(Component, EventDispatcher):
         (string power_state, float duration)
         """
         power_state = self.get_power_state()
-        duration = self.get_duration()
+        duration = self.get_clock()
         return (power_state, duration)
 
     def set_state(self, state):
@@ -55,8 +55,8 @@ class Projector(Component, EventDispatcher):
         """
         match state:
             case "on":
-                self._power_state = True
+                self.power_state = True
             case "off":
-                self._power_state = False
+                self.power_state = False
             case _:
                 print("Error changing projector power state in Projector module.")

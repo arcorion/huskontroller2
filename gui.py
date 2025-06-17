@@ -15,6 +15,8 @@ from pathlib import Path
 from random import choice
 import platform
 
+from components.sound import Sound
+
 # Setting color constants:
 SELECTED_TRANSPARENCY = .98
 UNSELECTED_TRANSPARENCY = .35
@@ -260,8 +262,17 @@ class MuteButton(DefaultButton):
 
 
 class HuskontrollerApp(App):
+    def __init__(self, components_dictionary):
+        super(HuskontrollerApp, self).__init__()
+        self.image = components_dictionary["image"]
+        self.input = components_dictionary["input"]
+        self.projector = components_dictionary["projector"]
+        self.sound = components_dictionary["sound"]
+        print(self.sound)
+        
     def build(self):
-        Builder.load_file('gui.kv')
+        Builder.load_file("gui.kv")
+        print(self.sound)
         return TouchPanel()
 
 def run():

@@ -11,14 +11,14 @@ class Image(Component, EventDispatcher):
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-        self._frozen = BooleanProperty(False)
-        self._blanked = BooleanProperty(False)
+        self.frozen = BooleanProperty(False)
+        self.blanked = BooleanProperty(False)
         
     def set_freeze(self):
         """
         Send freeze command and update internal state.
         """
-        self._commander.send_command("enable_freeze")
+        self.commander.send_command("enable_freeze")
         self._frozen = True
         self.set_clock()
 
@@ -26,7 +26,7 @@ class Image(Component, EventDispatcher):
         """
         Send unfreeze command and update internal state.
         """
-        self._commander.send_command("disable_freeze")
+        self.commander.send_command("disable_freeze")
         self._frozen = False
         self.set_clock()
 
@@ -34,7 +34,7 @@ class Image(Component, EventDispatcher):
         """
         Send blank command and update internal state.
         """
-        self._commander.send_command("disable_video")
+        self.commander.send_command("disable_video")
         self._blanked = True
         self.set_clock()
 
@@ -42,7 +42,7 @@ class Image(Component, EventDispatcher):
         """
         Send unblank command and update internal state.
         """
-        self._commander.send_command("enable_video")
+        self.commander.send_command("enable_video")
         self._blanked = False
         self.set_clock()
     
@@ -50,13 +50,13 @@ class Image(Component, EventDispatcher):
         """
         Return blank status boolean - true "blanked", false "unblanked"
         """
-        return self._blanked
+        return self.blanked
     
     def get_freeze(self):
         """
         Return freeze status boolean - true "frozen", flase "unfrozen"
         """
-        return self._frozen
+        return self.frozen
     
     def get_state(self):
         """
@@ -65,5 +65,5 @@ class Image(Component, EventDispatcher):
         """
         freeze_state = self.get_freeze()
         blank_state = self.get_blank()
-        duration = self.get_duration()
+        duration = self.get_clock()
         return (freeze_state, blank_state, duration)

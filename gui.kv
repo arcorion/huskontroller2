@@ -88,8 +88,10 @@
                 step: 1
                 size_hint: 1, 75
                 text: 'Volume'
-                value: 50
+                value: app.sound.volume
+                on_value: app.sound.volume = int(self.value); print("Volume: " + str(app.sound.volume))
             MuteButton:
                 id: mute
                 size_hint: 1, 15
                 text: 'Mute'
+                on_state: app.sound.set_mute() if (self.state == "down") else app.sound.unset_mute(); print("Mute: " + str(app.sound.get_state()))

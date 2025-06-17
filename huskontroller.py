@@ -7,32 +7,33 @@ from components.projector import Projector
 from components.sound import Sound
 from gui import HuskontrollerApp
 
+from kivy.lang import Builder
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
 class Huskontroller(EventDispatcher):
     def __init__(self):
         self._commander = Commander()
-        self._image = Image()
-        self._input = Input(self._commander)
-        self._projector = Projector()
-        self._sound = Sound()
-        self._touchscreen = HuskontrollerApp()
-        
+        self.image = Image()
+        self.input = Input(self._commander)
+        self.projector = Projector()
+        self.sound = Sound()
+        print("In Controller: " + str(self.sound.get_state()))
         # Defines wait time between projector start
         # and sending the first command
-        self._projector_wait = 10
+        self.projector_wait = 10
 
+        self.components_dictionary = {
+            "image" : self.image,
+            "input" : self.input,
+            "projector" : self.projector,
+            "sound" : self.sound
+        }
         
-        """
-        self._device_list = [self._image,
-                             self._input, self._projector,
-                             self._sound]
-        """
-        
+        self.touchscreen = HuskontrollerApp(self.components_dictionary)
         self.set_initial_state()
 
-        self._touchscreen.run()
+        self.touchscreen.run()
 
     def set_initial_state(self):
         """
@@ -40,63 +41,63 @@ class Huskontroller(EventDispatcher):
         Image is set to unfrozen and unblanked, Input is set to podium,
         sound is enabled and set to volume of 50.
         """
-        self._projector.disable()
-        #sleep(self._projector_wait)
-        self._image.unset_blank()
-        self._image.unset_freeze()
-        self._input.set_input("podium")
-        self._sound.unset_mute()
-        self._sound.set_volume(50)
+        self.projector.disable()
+        #sleep(self.projector_wait)
+        self.image.unset_blank()
+        self.image.unset_freeze()
+        self.input.set_input("podium")
+        self.sound.unset_mute()
+        self.sound.set_volume(50)
 
     def turn_on_projector(self):
-        self._projector.enable()
-        sleep(self._projector_wait)
-        self._image.unset_blank()
-        self._image.unset_freeze()
+        self.projector.enable()
+        sleep(self.projector_wait)
+        self.image.unset_blank()
+        self.image.unset_freeze()
     
     def turn_off_projector(self):
-        self._projector.enable()
-        sleep(self._projector_wait)
-        self._image.unset_blank()
-        self._image.unset_freeze()
+        self.projector.enable()
+        sleep(self.projector_wait)
+        self.image.unset_blank()
+        self.image.unset_freeze()
     
     def set_input_podium(self):
-        power_on = self._projector.get_power_state()
+        power_on = self.projector.get_power_state()
         if not power_on:
             self.turn_on_projector()
-        self._input.set_input("podium")
+        self.input.set_input("podium")
 
     def set_input_hdmi(self):
         power_on = self._projector.get_power_state()
         if not power_on:
             self.turn_on_projector()
-        self._input.set_input("hdmi")
+        self.input.set_input("hdmi")
 
     def set_input_usbc(self):
-        power_on = self._projector.get_power_state()
+        power_on = self.projector.get_power_state()
         if not power_on:
             self.turn_on_projector()
-        self._input.set_input("usbc")
+        self.input.set_input("usbc")
 
     def set_input_vga(self):
-        power_on = self._projector.get_power_state()
+        power_on = self.projector.get_power_state()
         if not power_on:
             self.turn_on_projector()
-        self._input.set_input("vga")
+        self.input.set_input("vga")
 
     def toggle_blank(self):
-        blank = self._image.get_blank()
+        blank = self.image.get_blank()
         if blank:
-            self._image.unset_blank()
+            self.image.unset_blank()
         else:
-            self._image.set_blank()
+            self.image.set_blank()
 
     def toggle_freeze(self):
-        frozen = self._image.get_freeze()
+        frozen = self.image.get_freeze()
         if frozen:
-            self._image.unset_freeze()
+            self.image.unset_freeze()
         else:
-            self._image.set_freeze()
+            self.image.set_freeze()
 
     def toggle_camera(self):
         """
@@ -106,19 +107,15 @@ class Huskontroller(EventDispatcher):
         pass
 
     def set_volume(self, volume):
-        self._sound.unset_mute()
-        self._sound.set_volume(volume)
+        self.sound.unset_mute()
+        self.sound.set_volume(volume)
     
     def toggle_mute(self):
-        muted = self._sound.get_mute()
+        muted = self.sound.get_mute()
         if muted:
-            self._sound.unset_mute()
+            self.sound.unset_mute()
         else:
-            self._sound.set_mute()
-
-    def run(self):
-        pass
+            self.sound.set_mute()
 
 if __name__ == '__main__':
     controller = Huskontroller()
-    controller.run()

@@ -25,31 +25,31 @@ class Component:
         Initialize component with a string name, a controller controller, and
         a boolean enabled.
         """
-        self._controller = controller
-        self._name = name
-        self._enabled = enabled
+        self.controller = controller
+        self.name = name
+        self.enabled = enabled
         self.clock = Clock()
-        self._commander = Commander()
+        self.commander = Commander()
         # Enable log
         # To disable, set True to False.
         # self.log = Logger(self._name, True)
 
     def __repr__(self):
-        return f"{self._name}"
+        return f"{self.get_state()}"
 
     def get_controller(self):
         """
         Return the controller object bound
         with this component.
         """
-        return self._controller
+        return self.controller
     
     def set_controller(self, controller):
         """
         Takes controller object.
         Change the controller bound with this component.
         """
-        self._controller = controller
+        self.controller = controller
 
     def set_clock(self):
         """
@@ -79,7 +79,7 @@ class Clock:
         Initialize clock with time at creation
         of clock.
         """
-        self._last_state_change = time.time()
+        self.last_state_change = time.time()
     
     def __repr__(self):
         """
@@ -99,7 +99,7 @@ class Clock:
         Return float (in seconds) representing the duration passed
         since the last state change.
         """
-        duration = time.time() - self._last_state_change
+        duration = time.time() - self.last_state_change
         return duration
 
 '''
