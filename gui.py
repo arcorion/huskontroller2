@@ -46,7 +46,7 @@ ENABLE_RANDOM_BACKGROUND = False
 operating_system = platform.system()
 match operating_system:
     case 'Linux':
-        Config.set('graphic', 'fullscreen', 'auto')
+        Config.set('graphics', 'fullscreen', 'auto')
         Config.set('graphics', 'width', '800')
         Config.set('graphics', 'height', '480')
         Config.set('graphics', 'borderless', '1')
