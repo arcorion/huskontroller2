@@ -1,9 +1,9 @@
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.event import EventDispatcher
 from kivy.graphics import *
-from kivy.graphics import Callback
 from kivy.lang.builder import Builder
 from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
@@ -57,7 +57,6 @@ match operating_system:
         Exception("Not a supported OS")
 
 
-
 class TouchPanel(BoxLayout):
     def __init__(self, **kwargs):
         super(TouchPanel, self).__init__(**kwargs)
@@ -97,19 +96,25 @@ class DefaultButton(ToggleButton):
         self.outline_width = 1
         self.outline_color = [0, 0, 0, 1]
         self.bold = True
+        self.corner_radius = 10
+        with self.canvas.after:
+            self._col = Color(0, 0, 0, 0)
+            #Color(0, 0, 0, 0) # Draw a black border.
+            self._border = Line(width=2)
+        
+        self.bind(pos=self.update, size=self.update, state=self.update)
+        Clock.schedule_once(self.update, 0)
+
+    def update(self, *args):
+        self._border.rounded_rectangle = (self.x, self.y, self.width, self.height, 4)
+        self._col.a = 1 if self.state == 'down' else 0
 
     def on_state(self, widget, value):
         if value == 'down':
             self.background_color = self.background_color_down
-            with self.canvas.after:
-                husky_gold = HUSKY_GOLD
-                husky_gold.append(SELECTED_TRANSPARENCY)
-                Color(husky_gold)
-                Line(width=2, rectangle=[self.x, self.y,
-                                self.width, self.height])
         else:
             self.background_color = self.background_color_normal
-            self.canvas.after.clear()
+            #self.canvas.after.clear()
 
     def on_text(self, instance, value):
         base_color = None
