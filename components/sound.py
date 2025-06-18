@@ -3,12 +3,11 @@ from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
 class Sound(Component, EventDispatcher):
-    
+    volume = NumericProperty(50)
+    mute = BooleanProperty(False)
 
     def __init__(self):
         super(Sound, self).__init__()
-        self.volume = NumericProperty(50)
-        self.mute = BooleanProperty(False)
 
     def set_volume(self, volume=50):
         """

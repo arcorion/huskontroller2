@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.config import Config
 from kivy.core.window import Window
+from kivy.event import EventDispatcher
 from kivy.graphics import *
 from kivy.graphics import Callback
 from kivy.lang.builder import Builder
@@ -254,13 +255,12 @@ class VolumeLabel(Button):
     pass
 
 
-class VolumeSlider(Slider):    
+class VolumeSlider(Slider):
     pass
 
 
 class MuteButton(DefaultButton):
-    def __init__(self, **kwargs):
-        super(MuteButton, self).__init__(**kwargs)
+    pass
 
 
 class HuskontrollerApp(App):

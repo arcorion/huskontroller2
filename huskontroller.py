@@ -18,7 +18,7 @@ class Huskontroller(EventDispatcher):
         self.input = Input(self._commander)
         self.projector = Projector()
         self.sound = Sound()
-        print("In Controller: " + str(self.sound.get_state()))
+
         # Defines wait time between projector start
         # and sending the first command
         self.projector_wait = 10
@@ -35,6 +35,14 @@ class Huskontroller(EventDispatcher):
 
         self.touchscreen.run()
 
+    def set_everything_on(self):
+        self.projector.enable()
+        self.image.set_blank()
+        self.image.set_freeze()
+        self.input.set_input("usbc")
+        self.sound.set_mute()
+        self.sound.set_volume(100)
+
     def set_initial_state(self):
         """
         Set default state of the AV system. Projector is turned off,
@@ -47,7 +55,7 @@ class Huskontroller(EventDispatcher):
         self.image.unset_freeze()
         self.input.set_input("podium")
         self.sound.unset_mute()
-        self.sound.set_volume(50)
+        self.sound.set_volume(20)
 
     def turn_on_projector(self):
         self.projector.enable()

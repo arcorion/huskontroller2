@@ -27,7 +27,8 @@
                 PowerButton:
                     id: power
                     text: 'Projector'
-                    on_state: app.projector.enable() if (self.state == "down") else app.projector.disable(); print("Projector: " + str(app.projector.get_state()))
+                    state: 'down' if app.projector.power_state == True else 'normal'
+                    on_state: app.projector.enable() if (self.state == "down") else app.projector.disable()
             InputButtons:
                 cols: 2
                 padding: [10]
@@ -38,22 +39,26 @@
                     group: 'input_buttons'
                     id: podium
                     text: 'Podium'
-                    on_state: app.input.set_podium() if (self.state == "down") else print(); print("Input: " + str(app.input.get_state()))
+                    state: 'down' if app.input.input == 0 else 'normal'
+                    on_state: app.input.set_podium() if (self.state == "down") else print()
                 InputButton:
                     group: 'input_buttons'
                     id: usbc
                     text: 'USB-C'
-                    on_state: app.input.set_usbc() if (self.state == "down") else print(); print("Input: " + str(app.input.get_state()))
+                    state: 'down' if app.input.input == 2 else 'normal'
+                    on_state: app.input.set_usbc() if (self.state == "down") else print()
                 InputButton:
                     group: 'input_buttons'               
                     id: hdmi
                     text: 'HDMI'
-                    on_state: app.input.set_hdmi() if (self.state == "down") else print(); print("Input: " + str(app.input.get_state()))
+                    state: 'down' if app.input.input == 1 else 'normal'
+                    on_state: app.input.set_hdmi() if (self.state == "down") else print()
                 InputButton:
                     group: 'input_buttons'               
                     id: vga
                     text: 'VGA'
-                    on_state: app.input.set_vga() if (self.state == "down") else print(); print("Input: " + str(app.input.get_state()))
+                    state: 'down' if app.input.input == 3 else 'normal'
+                    on_state: app.input.set_vga() if (self.state == "down") else print()
         BlankSpace:
             size_hint: 25, 1
         ImageButtons:
@@ -67,12 +72,14 @@
                 id: blank
                 size_hint: 1, 42.5
                 text: 'Blank'
-                on_state: app.image.set_blank() if (self.state == "down") else app.image.unset_blank(); print("Blank: " + str(app.image.get_blank()))        
+                state: 'down' if app.image.blanked else 'normal'
+                on_state: app.image.set_blank() if (self.state == "down") else app.image.unset_blank()
             FreezeButton:
                 id: freeze
                 size_hint: 1, 42.5
                 text: 'Freeze'
-                on_state: app.image.set_freeze() if (self.state == "down") else app.image.unset_freeze(); print("Freeze: " + str(app.image.get_freeze()))
+                state: 'down' if app.image.frozen else 'normal'
+                on_state: app.image.set_freeze() if (self.state == 'down') else app.image.unset_freeze()
         SoundControls:
             size_hint: 10, 1
             orientation: 'vertical'
@@ -96,11 +103,11 @@
                 size_hint: 1, 75
                 text: 'Volume'
                 value: app.sound.volume
-                on_value: app.sound.set_volume(int(self.value)); print("Volume: " + str(app.sound.volume))
+                on_value: app.sound.set_volume(int(self.value))
             MuteButton:
                 id: mute
                 size_hint: 1, 15
-                sound: app.sound
+                # sound: app.sound
                 state: 'down' if app.sound.mute else 'normal'
                 text: 'Mute'
-                on_state: app.sound.set_mute() if (self.state == "down") else app.sound.unset_mute(); print("Mute: " + str(app.sound.get_state()))
+                on_state: app.sound.set_mute() if (self.state == 'down') else app.sound.unset_mute()

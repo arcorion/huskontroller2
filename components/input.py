@@ -11,12 +11,11 @@ class Input(Component, EventDispatcher):
     """
 
     INPUTS = ["podium", "hdmi", "usbc", "vga"]
+    input = NumericProperty(0)
 
     def __init__(self, commander):
-        super().__init__()
-
+        super(Input, self).__init__()
         self.commander = commander
-        self.input = 0
         
     def set_input(self, input):
         """

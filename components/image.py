@@ -6,13 +6,15 @@ class Image(Component, EventDispatcher):
     """
     Represents the image state - either frozen, blank, or neither.
     """
+    frozen = BooleanProperty(False)
+    blanked = BooleanProperty(False)
+
     def __init__(self):
         """
         Set initial state with freeze and blank disabled.
         """
         super().__init__()
-        self.frozen = BooleanProperty(False)
-        self.blanked = BooleanProperty(False)
+
         
     def set_freeze(self):
         """

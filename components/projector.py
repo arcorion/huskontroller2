@@ -8,6 +8,7 @@ class Projector(Component, EventDispatcher):
     as well as how long it has been since its state was
     last changed.
     """
+    power_state = BooleanProperty(False)
 
     def __init__(self):
         """
@@ -15,7 +16,6 @@ class Projector(Component, EventDispatcher):
         by default and initializing clock.
         """
         super().__init__()
-        self.power_state = BooleanProperty(False)
 
     def disable(self):
         """
