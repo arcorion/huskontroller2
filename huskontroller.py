@@ -21,7 +21,7 @@ class Huskontroller(EventDispatcher):
 
         # Defines wait time between projector start
         # and sending the first command
-        self.projector_wait = 10
+        self.projector_wait = 20
 
         self.components_dictionary = {
             "image" : self.image,
