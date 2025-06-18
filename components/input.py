@@ -10,7 +10,7 @@ class Input(Component, EventDispatcher):
     and provides a getter module for the input.
     """
 
-    _INPUTS = ["podium", "hdmi", "usbc", "vga"]
+    INPUTS = ["podium", "hdmi", "usbc", "vga"]
 
     def __init__(self, commander):
         super().__init__()
@@ -22,29 +22,41 @@ class Input(Component, EventDispatcher):
         """
         Attempt to set the input based off a passed string.
         "podium", "hdmi", "usbc", and "vga" are allowed.
+
+        If nothing matches, just uses podium as a default.
         """
-        try: 
-            index = self._INPUTS.index(input)
-        except ValueError:
-            print(f"Input not possible: {input}")
-        except Exception as error:
-            print(f"Unexpected error with Input: {error}")
+        if input in self.INPUTS: 
+            index = self.INPUTS.index(input)
+        else:
+            index = 0
         
         # Input number set from index
-        self._input = index
+        self.input = index
 
         # Commander expects 1-4, not 0-3, so increment and then
         # append to select string.
-        command_number = self.input + 1
-        input_command = "select_" + str(self._INPUTS[command_number])
+        input_command = "select_" + str(self.INPUTS[self.input])
+
         self.commander.send_command(input_command)
+
+    def set_hdmi(self):
+        self.set_input("hdmi")
+
+    def set_podium(self):
+        self.set_input("podium")
+
+    def set_usbc(self):
+        self.set_input("usbc")
+
+    def set_vga(self):
+        self.set_input("vga")
 
     def get_input(self):
         """
         Return a string of the currently set input,
          Options: "podium", "hdmi", "usbc", or "vga"
         """
-        return self._INPUTS[self.input]
+        return self.INPUTS[self.input]
     
     def get_state(self):
         """

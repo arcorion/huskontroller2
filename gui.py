@@ -4,6 +4,7 @@ from kivy.core.window import Window
 from kivy.graphics import *
 from kivy.graphics import Callback
 from kivy.lang.builder import Builder
+from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
@@ -91,8 +92,8 @@ class DefaultButton(ToggleButton):
         self.background_normal = ''
         self.color = (250/255, 250/255, 250/255, 1)
         self.font_name = './fonts/open_sans/open_sans_regular.ttf'
-        self.font_size = 36
-        self.outline_width = 5
+        self.font_size = 16
+        self.outline_width = 2
         self.outline_color = [0, 0, 0, 1]
         self.bold = True
 
@@ -258,7 +259,8 @@ class VolumeSlider(Slider):
 
 
 class MuteButton(DefaultButton):
-    pass
+    def __init__(self, **kwargs):
+        super(MuteButton, self).__init__(**kwargs)
 
 
 class HuskontrollerApp(App):
