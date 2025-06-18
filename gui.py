@@ -99,7 +99,6 @@ class DefaultButton(ToggleButton):
         self.corner_radius = 10
         with self.canvas.after:
             self._col = Color(0, 0, 0, 0)
-            #Color(0, 0, 0, 0) # Draw a black border.
             self._border = Line(width=2)
         
         self.bind(pos=self.update, size=self.update, state=self.update)
