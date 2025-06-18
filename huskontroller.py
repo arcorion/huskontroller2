@@ -50,7 +50,7 @@ class Huskontroller(EventDispatcher):
         sound is enabled and set to volume of 50.
         """
         self.projector.disable()
-        #sleep(self.projector_wait)
+        sleep(self.projector_wait)
         self.image.unset_blank()
         self.image.unset_freeze()
         self.input.set_input("podium")
