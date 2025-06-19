@@ -56,9 +56,6 @@ class Huskontroller(EventDispatcher):
     
     def turn_off_projector(self):
         self.projector.disable()
-        sleep(self.projector_wait)
-        self.image.unset_blank()
-        self.image.unset_freeze()
     
     def set_input_podium(self):
         power_on = self.projector.get_power_state()
