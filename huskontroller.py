@@ -55,7 +55,7 @@ class Huskontroller(EventDispatcher):
         self.image.unset_freeze()
     
     def turn_off_projector(self):
-        self.projector.enable()
+        self.projector.disable()
         sleep(self.projector_wait)
         self.image.unset_blank()
         self.image.unset_freeze()
