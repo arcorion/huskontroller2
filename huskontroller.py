@@ -40,13 +40,12 @@ class Huskontroller(EventDispatcher):
         Image is set to unfrozen and unblanked, Input is set to podium,
         sound is enabled and set to volume of 50.
         """
-        self.projector.disable()
-        sleep(self.projector_wait)
         self.image.unset_blank()
         self.image.unset_freeze()
         self.input.set_input("podium")
         self.sound.unset_mute()
         self.sound.set_volume(20)
+        self.projector.disable()
 
     def turn_on_projector(self):
         self.projector.enable()
