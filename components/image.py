@@ -21,7 +21,7 @@ class Image(Component, EventDispatcher):
         Send freeze command and update internal state.
         """
         self.commander.send_command("enable_freeze")
-        self._frozen = True
+        self.frozen = True
         self.set_clock()
 
     def unset_freeze(self):
@@ -29,7 +29,7 @@ class Image(Component, EventDispatcher):
         Send unfreeze command and update internal state.
         """
         self.commander.send_command("disable_freeze")
-        self._frozen = False
+        self.frozen = False
         self.set_clock()
 
     def set_blank(self):
@@ -37,7 +37,7 @@ class Image(Component, EventDispatcher):
         Send blank command and update internal state.
         """
         self.commander.send_command("disable_video")
-        self._blanked = True
+        self.blanked = True
         self.set_clock()
 
     def unset_blank(self):
@@ -45,7 +45,7 @@ class Image(Component, EventDispatcher):
         Send unblank command and update internal state.
         """
         self.commander.send_command("enable_video")
-        self._blanked = False
+        self.blanked = False
         self.set_clock()
     
     def get_blank(self):

@@ -27,21 +27,12 @@ class Huskontroller(EventDispatcher):
             "image" : self.image,
             "input" : self.input,
             "projector" : self.projector,
-            "sound" : self.sound
+            "sound" : self.sound,
+            "controller" : self
         }
         
         self.touchscreen = HuskontrollerApp(self.components_dictionary)
-        self.set_initial_state()
-
         self.touchscreen.run()
-
-    def set_everything_on(self):
-        self.projector.enable()
-        self.image.set_blank()
-        self.image.set_freeze()
-        self.input.set_input("usbc")
-        self.sound.set_mute()
-        self.sound.set_volume(100)
 
     def set_initial_state(self):
         """
@@ -93,19 +84,17 @@ class Huskontroller(EventDispatcher):
             self.turn_on_projector()
         self.input.set_input("vga")
 
-    def toggle_blank(self):
-        blank = self.image.get_blank()
-        if blank:
-            self.image.unset_blank()
-        else:
-            self.image.set_blank()
+    def turn_on_blank(self):
+        self.image.set_blank()
+    
+    def turn_off_blank(self):
+        self.image.unset_blank()
 
-    def toggle_freeze(self):
-        frozen = self.image.get_freeze()
-        if frozen:
-            self.image.unset_freeze()
-        else:
-            self.image.set_freeze()
+    def turn_on_freeze(self):
+        self.image.set_freeze()
+
+    def turn_off_freeze(self):
+        self.image.unset_freeze()
 
     def toggle_camera(self):
         """

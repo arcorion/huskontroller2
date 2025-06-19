@@ -28,7 +28,7 @@
                     id: power
                     text: 'Projector'
                     state: 'down' if app.projector.power_state == True else 'normal'
-                    on_state: app.projector.enable() if (self.state == "down") else app.projector.disable()
+                    on_state: app.controller.turn_on_projector() if (self.state == "down") else app.controller.turn_off_projector()
             InputButtons:
                 cols: 2
                 padding: [10]
@@ -73,25 +73,26 @@
                 size_hint: 1, 42.5
                 text: 'Blank'
                 state: 'down' if app.image.blanked else 'normal'
-                on_state: app.image.set_blank() if (self.state == "down") else app.image.unset_blank()
+                on_state: app.controller.turn_on_blank() if (self.state == "down") else app.controller.turn_off_blank()
             FreezeButton:
                 id: freeze
                 size_hint: 1, 42.5
                 text: 'Freeze'
                 state: 'down' if app.image.frozen else 'normal'
-                on_state: app.image.set_freeze() if (self.state == 'down') else app.image.unset_freeze()
+                on_state: app.controller.turn_on_freeze() if (self.state == "down") else app.controller.turn_off_freeze()
         SoundControls:
             size_hint: 10, 1
             orientation: 'vertical'
             VolumeLabel:
                 background_color: [0/255, 0/255, 0/255, 0]
-                color: [50/255, 0, 100/255, 1]
-                disabled: 'True'
+                color: [1, 1, 1, 1]
+                # disabled: 'True'
                 halign: 'center'
-                outline_width: 1
+                markup: True
+                outline_width: 2
                 outline_color: [0, 0, 0, 1]
                 size_hint: 1, 10
-                text: 'Volume\n' + str(int(volume.value))
+                text: f"[size=20]Volume\n{str(int(volume.value))}[/size]"
             VolumeSlider:
                 cursor_image: './images/w-logo.png'
                 cursor_width: '48sp'

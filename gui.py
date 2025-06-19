@@ -40,7 +40,7 @@ HDMI_YELLOW = [210/255, 210/255, 10/255]
 VGA_BLUE = [0/255, 10/255, 150/255]
 
 # Use this to enable a random background selection on start
-# If False, the old white puppy dubs background will be used.
+# If False, a specific background will always be chosen..
 ENABLE_RANDOM_BACKGROUND = False
 
 operating_system = platform.system()
@@ -66,7 +66,7 @@ class TouchPanel(BoxLayout):
         source_dir = source_path.parent
         image_directory = source_dir / 'images' / 'backgrounds'     
         
-        background = str(image_directory / 'pidubs-normal.png')
+        background = str(image_directory / 'handsome_doggy_2.png')
         if random:
             background_list = [x for x in image_directory.iterdir()]
             background = str(choice(background_list))
@@ -98,8 +98,8 @@ class DefaultButton(ToggleButton):
         self.bold = True
         self.corner_radius = 10
         with self.canvas.after:
-            self._col = Color(0, 0, 0, 0)
-            self._border = Line(width=2)
+            self._col = Color(1, 1, 1, 0)
+            self._border = Line(width=3)
         
         self.bind(pos=self.update, size=self.update, state=self.update)
         Clock.schedule_once(self.update, 0)
@@ -274,16 +274,9 @@ class HuskontrollerApp(App):
         self.input = components_dictionary["input"]
         self.projector = components_dictionary["projector"]
         self.sound = components_dictionary["sound"]
-        
+        self.controller = components_dictionary["controller"]
+        self.controller.set_initial_state()
+
     def build(self):
         Builder.load_file("gui.kv")
         return TouchPanel()
-
-def run():
-    HuskontrollerApp().run()
-
-if __name__ == "__main__":
-    """
-    Run me, my dear friend!
-    """
-    run()
