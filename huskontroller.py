@@ -49,10 +49,17 @@ class Huskontroller(EventDispatcher):
     def turn_on_projector(self):
         self.projector.enable()
         sleep(self.PROJECTOR_WAIT)
-        self.image.unset_blank()
-        self.image.unset_freeze()
+        # These are moved to the GUI, as this function runs outside
+        # of the main thread of Kivy and can't update Kivy components.
+        # self.image.unset_blank()
+        # self.image.unset_freeze()
     
     def turn_off_projector(self):
+        # These are moved to the GUI, as this function runs outside
+        # of the main thread of Kivy and can't update Kivy components.
+        # self.image.unset_blank()
+        # self.image.unset_freeze()
+        sleep(self.PROJECTOR_WAIT/2)
         self.projector.disable()
     
     def set_input_podium(self):

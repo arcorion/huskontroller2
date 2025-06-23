@@ -31,8 +31,7 @@
                     id: power
                     text: 'Projector'
                     state: 'down' if app.projector.power_state == True else 'normal'
-                    on_state: self.start_projector() if (self.state == "down") else app.controller.turn_off_projector()
-                    # on_state: app.PowerOnPopup() if (self.state == "down") else app.controller.turn_off_projector()
+                    on_state: self.start_projector() if (self.state == "down") else self.stop_projector()
             InputButtons:
                 cols: 2
                 padding: [10]

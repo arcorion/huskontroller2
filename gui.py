@@ -17,6 +17,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.widget import Widget
 from pathlib import Path
 from random import choice
+from time import sleep
 import platform, threading
 
 from components.sound import Sound
@@ -187,26 +188,42 @@ class PowerButton(DefaultButton):
 
     def start_projector(self):
         threading.Thread(target=self.app.controller.turn_on_projector, daemon=True).start()
-        power_on_message = PowerOnPopup()
+        power_on_message = PowerPopup()
         power_on_message.open()
+        Clock.schedule_once(self.call_unset_blank, 10)
+        Clock.schedule_once(self.call_unset_freeze, 10)
+    
+    def stop_projector(self):
+        Clock.schedule_once(self.call_unset_blank, 1)
+        Clock.schedule_once(self.call_unset_freeze, 1)
+        threading.Thread(target=self.app.controller.turn_off_projector, daemon=True).start()
+        power_off_message = PowerPopup("off")
+        power_off_message.open()
+    
+    def call_unset_blank(self, timer):
+        self.app.image.unset_blank()
 
-class PowerOnPopup(Popup):
-    def __init__(self, **kwargs):
-        super(PowerOnPopup, self).__init__(**kwargs)
+    def call_unset_freeze(self, timer):
+        self.app.image.unset_freeze()
+ 
+
+class PowerPopup(Popup):
+    def __init__(self, on_off_text="on", **kwargs):
+        super(PowerPopup, self).__init__(**kwargs)
         self.app = App.get_running_app()
         self.auto_dismiss = False
         self.background = ''
         self.background_color = tuple(HUSKY_PURPLE + [SELECTED_TRANSPARENCY])
+        self.on_off_text = on_off_text
         self.seconds = self.app.controller.PROJECTOR_WAIT
         self.size_hint = (0.9, 0.9)
         self.title = 'Projector'
         self.title_align = 'center'
         self.title_font = './fonts/open_sans/open_sans_regular.ttf'
         self.title_size = '36sp'
-        self.message = f"Powering up.\nInterface available in {self.seconds} seconds."
-        self.content = Label(text=self.message)
-        
 
+        self.message = f"Powering {self.on_off_text}.\nInterface available in {self.seconds} seconds."
+        self.content = Label(text=self.message)
         
         Clock.schedule_interval(self.update_message, 1)
     
@@ -215,8 +232,7 @@ class PowerOnPopup(Popup):
         if self.seconds == 0:
             self.dismiss()
         else:
-            self.content.text = f"Powering up.\nInterface available in {self.seconds} seconds..."
-
+            self.content.text =  f"Powering {self.on_off_text}.\nInterface available in {self.seconds} seconds."
 
 class InputButtons(GridLayout):
     """
