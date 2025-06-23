@@ -7,7 +7,6 @@ from components.projector import Projector
 from components.sound import Sound
 from gui import HuskontrollerApp
 
-from kivy.lang import Builder
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty
 
@@ -21,7 +20,7 @@ class Huskontroller(EventDispatcher):
 
         # Defines wait time between projector start
         # and sending the first command
-        self.projector_wait = 10
+        self.PROJECTOR_WAIT = 20
 
         self.components_dictionary = {
             "image" : self.image,
@@ -49,7 +48,7 @@ class Huskontroller(EventDispatcher):
 
     def turn_on_projector(self):
         self.projector.enable()
-        sleep(self.projector_wait)
+        sleep(self.PROJECTOR_WAIT)
         self.image.unset_blank()
         self.image.unset_freeze()
     

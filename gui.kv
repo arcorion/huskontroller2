@@ -1,3 +1,6 @@
+#:import Clock kivy.clock.Clock
+#:import threading threading
+#:import partial functools.partial
 <Touchpanel>:
     canvas:
         Color:
@@ -28,7 +31,8 @@
                     id: power
                     text: 'Projector'
                     state: 'down' if app.projector.power_state == True else 'normal'
-                    on_state: app.controller.turn_on_projector() if (self.state == "down") else app.controller.turn_off_projector()
+                    on_state: self.start_projector() if (self.state == "down") else app.controller.turn_off_projector()
+                    # on_state: app.PowerOnPopup() if (self.state == "down") else app.controller.turn_off_projector()
             InputButtons:
                 cols: 2
                 padding: [10]

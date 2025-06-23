@@ -1,3 +1,4 @@
+from functools import partial
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
@@ -10,18 +11,22 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.popup import Popup
 from kivy.uix.slider import Slider
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.widget import Widget
 from pathlib import Path
 from random import choice
-import platform
+import platform, threading
 
 from components.sound import Sound
 
+# Use this to enable a random background selection on start
+# If False, a specific background will always be chosen..
+ENABLE_RANDOM_BACKGROUND = False
 # Setting color constants:
 SELECTED_TRANSPARENCY = .98
-UNSELECTED_TRANSPARENCY = .35
+UNSELECTED_TRANSPARENCY = .4
 # Husky colors - only Husky Purple used as I write this, but
 # kept for future options.
 HUSKY_PURPLE = [50/255, 0, 100/255]
@@ -39,9 +44,7 @@ USBC_RED = [200/255, 30/255, 30/255]
 HDMI_YELLOW = [210/255, 210/255, 10/255]
 VGA_BLUE = [0/255, 10/255, 150/255]
 
-# Use this to enable a random background selection on start
-# If False, a specific background will always be chosen..
-ENABLE_RANDOM_BACKGROUND = False
+
 
 operating_system = platform.system()
 match operating_system:
@@ -166,10 +169,53 @@ class PowerInput(BoxLayout):
 class PowerButtonContainer(BoxLayout):
     pass
 
+
 class PowerButton(DefaultButton):
     
     def __init__(self, **kwargs):
         super(PowerButton, self).__init__(**kwargs)
+        self.app = App.get_running_app()
+
+    # def on_state(self, widget, value):
+    #     popup = PowerOnPopup()
+    #     Clock.schedule_once(partial(popup.open), 0.1)
+    #     if self.app.projector.power_state == True:
+    #         self.state = 'down'
+    #     else:
+    #         self.state = 'normal'
+    #     self.app.controller.turn_on_projector() if (self.state == "down") else self.app.controller.turn_off_projector()
+
+    def start_projector(self):
+        threading.Thread(target=self.app.controller.turn_on_projector, daemon=True).start()
+        power_on_message = PowerOnPopup()
+        power_on_message.open()
+
+class PowerOnPopup(Popup):
+    def __init__(self, **kwargs):
+        super(PowerOnPopup, self).__init__(**kwargs)
+        self.app = App.get_running_app()
+        self.auto_dismiss = False
+        self.background = ''
+        self.background_color = tuple(HUSKY_PURPLE + [SELECTED_TRANSPARENCY])
+        self.seconds = self.app.controller.PROJECTOR_WAIT
+        self.size_hint = (0.9, 0.9)
+        self.title = 'Projector'
+        self.title_align = 'center'
+        self.title_font = './fonts/open_sans/open_sans_regular.ttf'
+        self.title_size = '36sp'
+        self.message = f"Powering up.\nInterface available in {self.seconds} seconds."
+        self.content = Label(text=self.message)
+        
+
+        
+        Clock.schedule_interval(self.update_message, 1)
+    
+    def update_message(self, seconds):
+        self.seconds -= 1
+        if self.seconds == 0:
+            self.dismiss()
+        else:
+            self.content.text = f"Powering up.\nInterface available in {self.seconds} seconds..."
 
 
 class InputButtons(GridLayout):
