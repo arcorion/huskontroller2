@@ -14,9 +14,9 @@ The following components are necessary to build the touch controls:
 The software as-is is designed to work with an Extron 1804 DO Switcher and most Panasonic projectors. (It will likely work with most Extron switchers, but I've only used it with this one model.) Different hardware can be used by replacing the "extron_serial.py" module with another module offering the same functions.
 
 ## Requirements to run the software
-Python 3.9
-pyserial 3.5
-Kivy 2.3.0
+- Python 3.9
+- pyserial 3.5
+- Kivy 2.3.0
 
 Python can be installed from Python.org or via your distro's repo. I've been using the repo on Raspberry Pi OS.
 pyserial can be installed with pip on a dev machine:
