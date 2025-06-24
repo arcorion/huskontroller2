@@ -25,12 +25,13 @@ In Pi OS, I believe it's installed by default. If not, you'll need to install fr
 sudo apt install python3-serial
 
 This is similar with Kivy:
-pip install kivy
+`pip install kivy`
+
 And on Pi OS:
-sudo apt install python3-kivy
+`sudo apt install python3-kivy`
 
 The actual script is started with:
-python3 Huskontroller.py
+`python3 huskontroller.py`
 
 If you try to start it without having the necessary serial ports attached and configured, it may raise an error that it can't find the serial port. There is a test device called "test_serial.py" which may be used if needed for testing.
 
